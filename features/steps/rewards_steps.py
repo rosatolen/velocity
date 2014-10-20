@@ -1,17 +1,25 @@
 from behave import *
 import subprocess
+from reward import *
 
 @when(u'I save a reward called "A kiss from my girlfriend" with a price of 100 Tokens')
 def step_impl(context):
-  context.expected_reward = "A kiss from my girlfriend"
-  context.expected_reward_cost = "100"
+  context.expected_rewards = []
+  kiss = Reward("A kiss from my girlfriend", 100)
+  context.expected_rewards.append(kiss)
+  subprocess.call("python reward_repository.py add 'A kiss from my girlfriend' 100", shell=True)
 
-  subprocess.call("python rewards_repository.py add 'A kiss from my girlfriend' 100", shell=True)
+@when(u'I save a reward called "Go to London" with a price of 2000 Tokens')
+def step_impl(context):
+  london = Reward("Go to London", 2000)
+  context.expected_rewards.append(london)
+  subprocess.call("python reward_repository.py add 'Go to London' 2000", shell=True)
 
-@then(u'I should be able to list it')
+@then(u'I should be able to view all rewards')
 def step_impl(context):
   process = subprocess.Popen(["python reward_repository.py viewall"], stdout=subprocess.PIPE, shell=True)
   output = process.communicate()[0].strip()
 
-  assert(context.expected_reward in output)
-  assert(context.expected_reward_cost in output)
+  for expected_reward in context.expected_rewards:
+    assert(expected_reward.name in output)
+    assert(str(expected_reward.cost) in output)

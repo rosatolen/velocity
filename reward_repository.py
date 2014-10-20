@@ -12,7 +12,9 @@ class RewardRepository:
 
   def view_all_rewards(self):
     rewards = self.velocity_database.rewards
-    print(rewards.find_one())
+    print(rewards.count())
+    for reward in rewards.find(): 
+      print(reward)
 
 def main(arguments):
   repository = RewardRepository()
