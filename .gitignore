@@ -1,3 +1,6 @@
 ## Python ##
 ENV/*
 *.pyc
+
+## Local Database ##
+database/*
