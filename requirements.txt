@@ -2,3 +2,6 @@ behave==1.2.4
 bpython==0.13.1
 pymongo==2.7.2
 mock==1.0.1
+web.py==0.37
+selenium==2.43.0
+jinja2==2.7.3
