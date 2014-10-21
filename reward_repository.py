@@ -5,14 +5,13 @@ class RewardRepository:
   def __init__(self):
     self.velocity_database = MongoClient('mongodb://localhost:27017').velocity
 
-  def insert_reward(self, name, price):
+  def insert_reward(self, name, cost):
     rewards = self.velocity_database.rewards
-    new_reward = { "Name" : name, "Price" : price }
+    new_reward = { "Name" : name, "Cost" : cost }
     rewards.insert(new_reward)
 
   def view_all_rewards(self):
     rewards = self.velocity_database.rewards
-    print(rewards.count())
     for reward in rewards.find(): 
       print(reward)
 

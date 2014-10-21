@@ -2,14 +2,14 @@ from behave import *
 import subprocess
 from reward import *
 
-@when(u'I save a reward called "A kiss from my girlfriend" with a price of 100 Tokens')
+@when(u'I save a reward called "A kiss from my girlfriend" with a cost of 100 Tokens')
 def step_impl(context):
   context.expected_rewards = []
   kiss = Reward("A kiss from my girlfriend", 100)
   context.expected_rewards.append(kiss)
   subprocess.call("python reward_repository.py add 'A kiss from my girlfriend' 100", shell=True)
 
-@when(u'I save a reward called "Go to London" with a price of 2000 Tokens')
+@when(u'I save a reward called "Go to London" with a cost of 2000 Tokens')
 def step_impl(context):
   london = Reward("Go to London", 2000)
   context.expected_rewards.append(london)
