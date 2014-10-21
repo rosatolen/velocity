@@ -4,8 +4,8 @@ from reward import *
 
 @when(u'I save a reward called "A kiss from my girlfriend" with a cost of 100 Tokens')
 def step_impl(context):
-  context.expected_rewards = []
   kiss = Reward("A kiss from my girlfriend", 100)
+  context.expected_rewards = []
   context.expected_rewards.append(kiss)
   subprocess.call("python reward_repository.py add 'A kiss from my girlfriend' 100", shell=True)
 

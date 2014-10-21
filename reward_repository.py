@@ -3,16 +3,14 @@ from pymongo import MongoClient
 
 class RewardRepository:
   def __init__(self):
-    self.velocity_database = MongoClient('mongodb://localhost:27017').velocity
+    self.rewards = MongoClient('mongodb://localhost:27017').velocity.rewards
 
   def insert_reward(self, name, cost):
-    rewards = self.velocity_database.rewards
     new_reward = { "Name" : name, "Cost" : cost }
-    rewards.insert(new_reward)
+    self.rewards.insert(new_reward)
 
   def view_all_rewards(self):
-    rewards = self.velocity_database.rewards
-    for reward in rewards.find(): 
+    for reward in self.rewards.find():
       print(reward)
 
 def main(arguments):
