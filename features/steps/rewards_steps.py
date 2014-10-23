@@ -8,13 +8,13 @@ def step_impl(context):
   kiss = Reward("A kiss from my girlfriend", 100)
   context.expected_rewards = []
   context.expected_rewards.append(kiss)
-  home_page.add_reward(context, kiss)
+  context.home_page.add_reward(kiss)
 
 @when(u'I save a reward called "Go to London" with a cost of 2000 Tokens')
 def step_impl(context):
   london = Reward("Go to London", 2000)
   context.expected_rewards.append(london)
-  subprocess.call("python reward_repository.py add 'Go to London' 2000", shell=True)
+  context.home_page.add_reward(london)
 
 @then(u'I should be able to view all rewards')
 def step_impl(context):
