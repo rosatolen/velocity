@@ -1,0 +1,14 @@
+$def with (rewards, form)
+
+<title>Velocity</title>
+
+    <table>
+      $for reward in rewards:
+      <tr>
+        <td>$reward.name</td>
+        <td>$reward.cost</td>
+      </tr>
+    </table>
+    <form action="" method="post">
+      $:form.render()
+    </form>
