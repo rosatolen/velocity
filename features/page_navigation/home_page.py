@@ -11,5 +11,14 @@ class HomePage:
     inputField.send_keys(str(reward.cost))
     self.browser.find_element(By.TAG_NAME, 'button').click()
 
-  def assert_reward_exists(self, reward):
-    self.browser.findElement(By.NAME, 'rewards')
+  def get_current_rewards(self):
+    rewards = self.browser.find_elements(By.NAME, 'reward')
+    costs = self.browser.find_elements(By.NAME, 'cost')
+
+    actual_rewards = {}
+    i = 0
+    for reward in rewards: 
+      actual_rewards[reward.text] = int(costs[i].text)
+      i = i + 1
+    print actual_rewards
+    return actual_rewards

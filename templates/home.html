@@ -3,10 +3,14 @@ $def with (rewards, form)
 <title>Velocity</title>
 
     <table>
+      <tr>
+        <th>Reward</th>
+        <th>Cost</th>
+      </tr>
       $for reward in rewards:
       <tr>
-        <td>$reward.name</td>
-        <td>$reward.cost</td>
+        <td name='reward'>$reward.name</td>
+        <td name='cost'>$reward.cost</td>
       </tr>
     </table>
     <form action="" method="post">

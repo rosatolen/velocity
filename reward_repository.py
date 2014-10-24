@@ -15,10 +15,6 @@ class RewardRepository:
       rewards.append(Reward(reward['name'], reward['cost']))
     return rewards
 
-  def insert_reward(self, name, cost):
-    new_reward = { "name" : name, "Cost" : cost }
-    self.rewards.insert(new_reward)
-
   def view_all_rewards(self):
     for reward in self.rewards.find():
       print(reward)
@@ -26,10 +22,7 @@ class RewardRepository:
 
 def main(arguments):
   repository = RewardRepository()
-  if 'add' in arguments[1]:
-    repository.insert_reward(arguments[2], arguments[3])
-  elif 'viewall' in arguments[1]:
-    repository.view_all_rewards()
+  repository.view_all_rewards()
 
 if __name__ == "__main__":
   main(sys.argv)

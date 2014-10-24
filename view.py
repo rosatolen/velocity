@@ -14,14 +14,14 @@ render = web.template.render('templates')
 
 class Home:
   form = web.form.Form(
-    web.form.Textbox('Name',  web.form.notnull),
-    web.form.Textbox('Cost', web.form.notnull),
+    web.form.Textbox('new_reward_name',  web.form.notnull, description=""),
+    web.form.Textbox('new_reward_cost', web.form.notnull, description=""),
     web.form.Button('Add Reward'),
   )
+  reward_repository = RewardRepository()
 
   def GET(self):
-    reward_repository = RewardRepository()
-    rewards = reward_repository.get_rewards()
+    rewards = self.reward_repository.get_rewards()
     form = self.form()
     return render.home(rewards, form)
 
@@ -30,9 +30,8 @@ class Home:
     if not form.validates():
       return render.home(form)
 
-    reward = Reward(form.d.Name, form.d.Cost)
-    reward_repository = RewardRepository()
-    reward_repository.add(reward)
+    new_reward = Reward(form.d.new_reward_name, form.d.new_reward_cost)
+    self.reward_repository.add(new_reward)
     raise web.seeother('/')
 
 if __name__ == "__main__":

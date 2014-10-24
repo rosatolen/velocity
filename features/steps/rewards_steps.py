@@ -18,9 +18,7 @@ def step_impl(context):
 
 @then(u'I should be able to view all rewards')
 def step_impl(context):
-  process = subprocess.Popen(["python reward_repository.py viewall"], stdout=subprocess.PIPE, shell=True)
-  output = process.communicate()[0].strip()
-
+  actual_rewards = context.home_page.get_current_rewards()
   for expected_reward in context.expected_rewards:
-    assert(expected_reward.name in output)
-    assert(str(expected_reward.cost) in output)
+    assert(actual_rewards.has_key(expected_reward.name))
+    assert(actual_rewards[expected_reward.name] == expected_reward.cost)
