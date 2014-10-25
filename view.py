@@ -3,7 +3,8 @@ import view
 
 def main():
   urls = (
-    '/', 'view.Home'
+    '/', 'view.Home',
+    '/create/reward', 'view.CreateReward',
   )
   app = web.application(urls, globals())
   app.run()
