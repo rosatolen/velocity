@@ -1,18 +1,15 @@
 import web
+import forms
 from reward import Reward
 from reward_repository import RewardRepository
 
 class CreateReward:
-  form = web.form.Form(
-    web.form.Textbox('new_reward_name', web.form.notnull, description=""),
-    web.form.Textbox('new_reward_cost', web.form.notnull, description=""),
-    web.form.Button('Add Reward'),
-  )
-  reward_repository = RewardRepository()
-  render = web.template.render('templates')
+  def __init__(self):
+    self.reward_repository = RewardRepository()
+    self.render = web.template.render('templates')
 
   def POST(self):
-    form = self.form()
+    form = forms.RewardForm().form
     if not form.validates():
       return self.render.home(form)
 
