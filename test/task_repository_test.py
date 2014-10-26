@@ -4,10 +4,11 @@ from model.task_repository import TaskRepository
 from model.task import SnailTask
 
 
-def test_call_to_mongo_when_adding_a_snail_task():
-    mock_task_storage = mock.create_autospec(MongoWrapper)
-    task_repo = TaskRepository(mock_task_storage)
+mock_task_storage = mock.create_autospec(MongoWrapper)
+task_repo = TaskRepository(mock_task_storage)
 
+
+def test_call_to_mongo_when_adding_a_snail_task():
     task = SnailTask('chiquail')
     task_repo.add(task)
 
@@ -15,9 +16,6 @@ def test_call_to_mongo_when_adding_a_snail_task():
 
 
 def test_call_to_mongo_when_getting_tasks():
-    mock_task_storage = mock.create_autospec(MongoWrapper)
-    task_repo = TaskRepository(mock_task_storage)
-
     task_repo.get_tasks()
 
     mock_task_storage.find_tasks().assert_called()

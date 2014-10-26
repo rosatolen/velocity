@@ -4,10 +4,11 @@ from model.reward import Reward
 from model.mongo_wrapper import MongoWrapper
 
 
-def test_call_to_mongo_when_adding_a_reward():
-    mock_rewards_storage = mock.create_autospec(MongoWrapper)
-    reward_repo = RewardRepository(mock_rewards_storage)
+mock_rewards_storage = mock.create_autospec(MongoWrapper)
+reward_repo = RewardRepository(mock_rewards_storage)
 
+
+def test_call_to_mongo_when_adding_a_reward():
     reward = Reward('reward', 100)
     reward_repo.add(reward)
 
@@ -15,9 +16,6 @@ def test_call_to_mongo_when_adding_a_reward():
 
 
 def test_call_to_mongo_when_getting_rewards():
-    mock_rewards_storage = mock.create_autospec(MongoWrapper)
-    reward_repo = RewardRepository(mock_rewards_storage)
-
     reward_repo.get_rewards()
 
     mock_rewards_storage.find_rewards().assert_called()
