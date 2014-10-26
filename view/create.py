@@ -14,12 +14,12 @@ class CreateReward:
   def POST(self):
     reward_form = forms.RewardForm().form
     task_form = forms.TaskForm().form
-    rewards = reward_repository.get_rewards()
-    tasks = task_repository.get_tasks()
-    if not form.validates():
+    rewards = self.reward_repository.get_rewards()
+    tasks = self.task_repository.get_tasks()
+    if not reward_form.validates():
       return self.render.home(rewards, reward_form, tasks, task_form)
 
-    new_reward = Reward(form.d.new_reward_name, form.d.new_reward_cost)
+    new_reward = Reward(reward_form.d.new_reward_name, reward_form.d.new_reward_cost)
     self.reward_repository.add(new_reward)
     raise web.seeother('/')
 
