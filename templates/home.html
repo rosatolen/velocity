@@ -43,6 +43,11 @@ $:reward_form.submit_reward.render()
         $else:
           <td name='quail_task_name'>$task.name</td>
           <td>Quail</td>
+          <td>
+              <form action="/complete/task/$task.name" method="post">
+                  $:complete_task_form.render()
+              </form>
+          </td>
       </tr>
       <tr>
 <form action="/create/task/snail" method="post">

@@ -42,3 +42,20 @@ def step_impl(context):
     actual_snail_tasks, actual_quail_tasks = context.home_page.get_current_tasks()
     unexpected_task = SnailTask('Do expenses for October')
     tools.assert_not_in(unexpected_task, actual_snail_tasks)
+
+@given(u'I create a quail task called "Finish the book DNS and BIND"')
+def step_impl(context):
+    book = QuailTask("Finish the book DNS and BIND")
+    context.expected_quail_tasks = []
+    context.expected_quail_tasks.append(book)
+    context.home_page.add_quail_task(book)
+
+@when(u'I complete the quail task called "Finish the book DNS and BIND"')
+def step_impl(context):
+    context.home_page.complete_task()
+
+@then(u'the snail task "Finish the book DNS and BIND" should be deleted')
+def step_impl(context):
+    actual_snail_tasks, actual_quail_tasks = context.home_page.get_current_tasks()
+    unexpected_task = QuailTask("Finish the book DNS and BIND")
+    tools.assert_not_in(unexpected_task, actual_quail_tasks)
