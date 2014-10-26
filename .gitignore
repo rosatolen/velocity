@@ -4,3 +4,6 @@ ENV/*
 
 ## Local Database ##
 database/*
+
+## Vim ##
+*.swp
