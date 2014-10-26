@@ -23,7 +23,6 @@ class HomePage:
         for reward in rewards:
             actual_rewards[reward.text] = int(costs[i].text)
             i += 1
-        print actual_rewards
         return actual_rewards
 
     def add_snail_task(self, task):
@@ -39,8 +38,6 @@ class HomePage:
     def get_current_tasks(self):
         snail_tasks = self.browser.find_elements(By.NAME, 'snail_task_name')
         quail_tasks = self.browser.find_elements(By.NAME, 'quail_task_name')
-        print 'snails ' + str(snail_tasks)
-        print 'quails ' + str(quail_tasks)
         actual_snail_tasks = []
         actual_quail_tasks = []
         for task in snail_tasks:
