@@ -14,6 +14,9 @@ def before_all(context):
 
 def before_scenario(context, scenario):
     context.browser.get('localhost:1234')
+    context.expected_snail_tasks = []
+    context.expected_quail_tasks = []
+    context.expected_rewards = []
 
 
 def after_all(context):

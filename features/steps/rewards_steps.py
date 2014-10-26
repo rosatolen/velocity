@@ -4,7 +4,6 @@ from model.reward import *
 @when(u'I save a reward called "A kiss from my girlfriend" with a cost of 100 Tokens')
 def step_impl(context):
     kiss = Reward("A kiss from my girlfriend", 100)
-    context.expected_rewards = []
     context.expected_rewards.append(kiss)
     context.home_page.add_reward(kiss)
 
