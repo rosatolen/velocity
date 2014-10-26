@@ -2,12 +2,13 @@ import web
 import forms
 from model.reward_repository import RewardRepository
 from model.task_repository import TaskRepository
+from model.mongo_wrapper import MongoWrapper
 
 
 class Home:
     def __init__(self):
-        self.reward_repository = RewardRepository()
-        self.task_repository = TaskRepository()
+        self.reward_repository = RewardRepository(MongoWrapper())
+        self.task_repository = TaskRepository(MongoWrapper())
         self.render = web.template.render('templates')
 
     def GET(self):

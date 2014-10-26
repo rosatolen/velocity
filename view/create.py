@@ -4,12 +4,13 @@ from model.reward import Reward
 from model.reward_repository import RewardRepository
 from model.task import *
 from model.task_repository import TaskRepository
+from model.mongo_wrapper import MongoWrapper
 
 
 class CreateReward:
     def __init__(self):
-        self.reward_repository = RewardRepository()
-        self.task_repository = TaskRepository()
+        self.reward_repository = RewardRepository(MongoWrapper())
+        self.task_repository = TaskRepository(MongoWrapper())
         self.render = web.template.render('templates')
 
     def POST(self):
@@ -28,8 +29,8 @@ class CreateReward:
 
 class CreateSnailTask:
     def __init__(self):
-        self.task_repository = TaskRepository()
-        self.reward_repository = RewardRepository()
+        self.task_repository = TaskRepository(MongoWrapper())
+        self.reward_repository = RewardRepository(MongoWrapper())
         self.render = web.template.render('templates')
 
     def POST(self):
@@ -48,8 +49,8 @@ class CreateSnailTask:
 
 class CreateQuailTask:
     def __init__(self):
-        self.task_repository = TaskRepository()
-        self.reward_repository = RewardRepository()
+        self.task_repository = TaskRepository(MongoWrapper())
+        self.reward_repository = RewardRepository(MongoWrapper())
         self.render = web.template.render('templates')
 
     def POST(self):

@@ -3,12 +3,12 @@ from model.task import *
 
 
 class TaskRepository:
-    def __init__(self):
-        self.tasks = MongoClient('mongodb://localhost:27017').velocity.tasks
+    def __init__(self, mongo_repository):
+        self.tasks = mongo_repository
 
     def get_tasks(self):
         tasks = []
-        for task in self.tasks.find():
+        for task in self.tasks.find_tasks():
             if task['size'] == 'snail':
                 print 'database poped a snail'
                 tasks.append(SnailTask(task['name']))
@@ -19,9 +19,8 @@ class TaskRepository:
 
     def add(self, task):
         if task.is_snail:
-            print 'database inserted a snail'
             new_task = {"name": task.name, "size": "snail"}
         else:
             print 'database inserted a quail'
             new_task = {"name": task.name, "size": "quail"}
-        self.tasks.insert(new_task)
+        self.tasks.insert_task(new_task)
