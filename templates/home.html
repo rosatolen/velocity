@@ -1,4 +1,4 @@
-$def with (rewards, reward_form, tasks, task_form)
+$def with (rewards, reward_form, tasks, snail_task_form, quail_task_form)
 
 <title>Velocity</title>
 
@@ -28,14 +28,25 @@ $:reward_form.submit_reward.render()
     <table>
       <tr>
         <th>Task</th>
+        <th>Size</th>
       </tr>
       $for task in tasks:
       <tr>
-        <td name='task_name'>$task.name</td>
+        $if task.is_snail():
+          <td name='snail_task_name'>$task.name</td>
+          <td>Snail</td>
+        $else:
+          <td name='quail_task_name'>$task.name</td>
+          <td>Quail</td>
       </tr>
       <tr>
-<form action="/create/task" method="post">
-$:task_form.render()
+<form action="/create/task/snail" method="post">
+$:snail_task_form.render()
+</form>
+      </tr>
+      <tr>
+<form action="/create/task/quail" method="post">
+$:quail_task_form.render()
 </form>
       </tr>
     </table>
