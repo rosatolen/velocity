@@ -17,3 +17,6 @@ class MongoWrapper:
 
     def find_tasks(self):
         return self.tasks.find()
+
+    def delete_task(self, task):
+        self.tasks.remove(task)

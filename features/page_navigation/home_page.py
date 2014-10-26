@@ -45,3 +45,6 @@ class HomePage:
         for task in quail_tasks:
             actual_quail_tasks.append(QuailTask(task.text))
         return actual_snail_tasks, actual_quail_tasks
+
+    def complete_task(self):
+        self.browser.find_element(By.NAME, 'complete').click()

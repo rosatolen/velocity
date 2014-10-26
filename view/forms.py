@@ -24,3 +24,10 @@ class QuailTaskForm:
             web.form.Textbox('new_quail_task_name', web.form.notnull, description=""),
             web.form.Button('submit_quail_task', html='Add Quail Task'),
         )
+
+
+class CompleteTaskForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Button('complete', html="Complete Task")
+        )
