@@ -1,4 +1,4 @@
-$def with (rewards, form)
+$def with (rewards, reward_form, tasks, task_form)
 
 <title>Velocity</title>
 
@@ -15,12 +15,27 @@ $def with (rewards, form)
       <tr>
 <form action="/create/reward" method="post">
         <td>
-$:form.new_reward_name.render()
+$:reward_form.new_reward_name.render()
         </td>
         <td>
-$:form.new_reward_cost.render()
-$:form.submit.render()
+$:reward_form.new_reward_cost.render()
+$:reward_form.submit_reward.render()
         </td>
+</form>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th>Task</th>
+      </tr>
+      $for task in tasks:
+      <tr>
+        <td name='task_name'>$task.name</td>
+      </tr>
+      <tr>
+<form action="/create/task" method="post">
+$:task_form.render()
 </form>
       </tr>
     </table>
