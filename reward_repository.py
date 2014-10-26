@@ -14,15 +14,3 @@ class RewardRepository:
     for reward in self.rewards.find():
       rewards.append(Reward(reward['name'], reward['cost']))
     return rewards
-
-  def view_all_rewards(self):
-    for reward in self.rewards.find():
-      print(reward)
-      print(reward['name'])
-
-def main(arguments):
-  repository = RewardRepository()
-  repository.view_all_rewards()
-
-if __name__ == "__main__":
-  main(sys.argv)
