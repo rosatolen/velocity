@@ -1,6 +1,5 @@
-import sys
 from pymongo import MongoClient
-from reward import *
+from model.reward import *
 
 class RewardRepository:
   def __init__(self):
