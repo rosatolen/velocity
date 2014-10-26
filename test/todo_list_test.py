@@ -1,9 +1,6 @@
 import mock
-from nose import tools
-from model.mongo_wrapper import MongoWrapper
+from model.repositories.mongo_wrapper import MongoWrapper
 from model.todo_list import TodoList
-from model.task import SnailTask
-from model.task import QuailTask
 
 
 mock_task_storage = mock.create_autospec(MongoWrapper)

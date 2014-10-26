@@ -1,7 +1,7 @@
 import mock
 from nose import tools
-from model.mongo_wrapper import MongoWrapper
-from model.task_repository import TaskRepository
+from model.repositories.mongo_wrapper import MongoWrapper
+from model.repositories.task_repository import TaskRepository
 from model.task import SnailTask
 from model.task import QuailTask
 

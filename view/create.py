@@ -1,10 +1,10 @@
 import web
 import forms
 from model.reward import Reward
-from model.reward_repository import RewardRepository
+from model.repositories.reward_repository import RewardRepository
 from model.task import *
-from model.task_repository import TaskRepository
-from model.mongo_wrapper import MongoWrapper
+from model.repositories.task_repository import TaskRepository
+from model.repositories.mongo_wrapper import MongoWrapper
 
 
 class CreateReward:
