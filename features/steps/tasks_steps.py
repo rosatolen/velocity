@@ -1,4 +1,6 @@
 from model.task import *
+from model.rapport_purse import RapportPurse
+from model.repositories.mongo_wrapper import MongoWrapper
 from nose import tools
 
 
@@ -48,8 +50,13 @@ def step_impl(context):
 def step_impl(context):
     context.home_page.complete_task()
 
-@then(u'the snail task "Finish the book DNS and BIND" should be deleted')
+@then(u'the quail task "Finish the book DNS and BIND" should be deleted')
 def step_impl(context):
     actual_snail_tasks, actual_quail_tasks = context.home_page.get_current_tasks()
     unexpected_task = QuailTask("Finish the book DNS and BIND")
     tools.assert_not_in(unexpected_task, actual_quail_tasks)
+
+@then(u'I should have 1 more rapport in my rapport purse')
+def step_impl(context):
+    rapport_purse = RapportPurse(MongoWrapper())
+    tools.assert_equal(1, rapport_purse.total)

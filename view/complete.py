@@ -3,6 +3,7 @@ import forms
 from model.repositories.reward_repository import RewardRepository
 from model.repositories.task_repository import TaskRepository
 from model.repositories.mongo_wrapper import MongoWrapper
+from model.rapport_purse import RapportPurse
 from model.todo_list import TodoList
 
 
@@ -23,6 +24,6 @@ class CompleteTask:
         if not complete_task_form.validates():
             return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form)
 
-        todo_list = TodoList(MongoWrapper())
+        todo_list = TodoList(MongoWrapper(), RapportPurse(MongoWrapper()))
         todo_list.complete(name)
         raise web.seeother('/')
