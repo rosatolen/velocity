@@ -2,6 +2,13 @@ from pymongo import MongoClient
 from model.task import *
 
 
+def create_task(db_task):
+    if db_task['size'] == 'snail':
+        return SnailTask(db_task['name'])
+    else:
+        return QuailTask(db_task['name'])
+
+
 class TaskRepository:
     def __init__(self, mongo_repository):
         self.tasks = mongo_repository
@@ -21,3 +28,11 @@ class TaskRepository:
             else:
                 tasks.append(QuailTask(task['name']))
         return tasks
+
+    def get_task(self, name):
+        for task in self.tasks.find_tasks():
+            if task['name'] == name:
+                return create_task(task)
+
+    def delete_task(self, name):
+        self.tasks.remove({'name': name})

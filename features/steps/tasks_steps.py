@@ -60,3 +60,8 @@ def step_impl(context):
 def step_impl(context):
     rapport_purse = RapportPurse(MongoWrapper())
     tools.assert_equal(1, rapport_purse.total)
+
+@then(u'I should have 10 more rapport in my rapport purse')
+def step_impl(context):
+    rapport_purse = RapportPurse(MongoWrapper())
+    tools.assert_equal(11, rapport_purse.total)

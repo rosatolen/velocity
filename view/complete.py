@@ -24,6 +24,6 @@ class CompleteTask:
         if not complete_task_form.validates():
             return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form)
 
-        todo_list = TodoList(MongoWrapper(), RapportPurse(MongoWrapper()))
+        todo_list = TodoList(TaskRepository(MongoWrapper()), RapportPurse(MongoWrapper()))
         todo_list.complete(name)
         raise web.seeother('/')

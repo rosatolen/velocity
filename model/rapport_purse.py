@@ -7,4 +7,7 @@ class RapportPurse:
             self.total = 0
 
     def add_rapport_for(self, task):
-        self.rapport_storage.increment_rapport_by(1)
+        if task.is_snail():
+            self.rapport_storage.increment_rapport_by(1)
+        else:
+            self.rapport_storage.increment_rapport_by(10)

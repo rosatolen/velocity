@@ -19,7 +19,7 @@ class MongoWrapper:
     def find_tasks(self):
         return self.tasks.find()
 
-    def delete_task(self, task):
+    def remove(self, task):
         self.tasks.remove(task)
 
     def get_total(self):
@@ -31,7 +31,7 @@ class MongoWrapper:
 
     def increment_rapport_by(self, number):
         i = self.rapport.distinct('total').pop()
-        self.rapport.find_and_modify({'total': i}, {'$inc': {'total': 1}})
+        self.rapport.find_and_modify({'total': i}, {'$inc': {'total': number}})
 
     def initialize_rapport(self, initial_value):
         self.rapport.insert(initial_value)
