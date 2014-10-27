@@ -2,6 +2,7 @@ import web
 import forms
 from model.repositories.reward_repository import RewardRepository
 from model.repositories.task_repository import TaskRepository
+from model.repositories.rapport_repository import RapportRepository
 from model.rapport_purse import RapportPurse
 from model.repositories.mongo_wrapper import MongoWrapper
 
@@ -10,7 +11,7 @@ class Home:
     def __init__(self):
         self.reward_repository = RewardRepository(MongoWrapper())
         self.task_repository = TaskRepository(MongoWrapper())
-        self.rapport_purse = RapportPurse(MongoWrapper())
+        self.rapport_purse = RapportPurse(RapportRepository(MongoWrapper()))
         self.render = web.template.render('templates')
 
     def GET(self):
@@ -21,4 +22,5 @@ class Home:
         snail_task_form = forms.SnailTaskForm().form
         quail_task_form = forms.QuailTaskForm().form
         complete_task_form = forms.CompleteTaskForm().form
-        return self.render.home(rapport_total, rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form)
+        return self.render.home(rapport_total, rewards, reward_form, tasks, snail_task_form, quail_task_form,
+                                complete_task_form)

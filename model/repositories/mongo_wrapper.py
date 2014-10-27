@@ -22,14 +22,10 @@ class MongoWrapper:
     def remove(self, task):
         self.tasks.remove(task)
 
-    def get_total(self):
-        total = self.rapport.distinct('total')
-        if not total:
-            return None
-        else:
-            return total.pop()
+    def get(self, key):
+        return self.rapport.distinct(key)
 
-    def increment_rapport_by(self, number):
+    def increment_rapport_total_by(self, number):
         i = self.rapport.distinct('total').pop()
         self.rapport.find_and_modify({'total': i}, {'$inc': {'total': number}})
 

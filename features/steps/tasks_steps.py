@@ -1,5 +1,6 @@
 from model.task import *
 from model.rapport_purse import RapportPurse
+from model.repositories.rapport_repository import RapportRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 from nose import tools
 
@@ -58,10 +59,10 @@ def step_impl(context):
 
 @then(u'I should have 1 more rapport in my rapport purse')
 def step_impl(context):
-    rapport_purse = RapportPurse(MongoWrapper())
+    rapport_purse = RapportPurse(RapportRepository(MongoWrapper()))
     tools.assert_equal(1, rapport_purse.total)
 
 @then(u'I should have 10 more rapport in my rapport purse')
 def step_impl(context):
-    rapport_purse = RapportPurse(MongoWrapper())
+    rapport_purse = RapportPurse(RapportRepository(MongoWrapper()))
     tools.assert_equal(11, rapport_purse.total)

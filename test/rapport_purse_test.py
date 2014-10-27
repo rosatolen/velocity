@@ -1,11 +1,11 @@
 import mock
-from model.repositories.mongo_wrapper import MongoWrapper
+from model.repositories.rapport_repository import RapportRepository
 from model.todo_list import TodoList
 from model.task import SnailTask
 from model.task import QuailTask
 from model.rapport_purse import RapportPurse
 
-mock_rapport_storage = mock.create_autospec(MongoWrapper)
+mock_rapport_storage = mock.create_autospec(RapportRepository)
 rapport_purse = RapportPurse(mock_rapport_storage)
 
 
