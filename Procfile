@@ -1,1 +1,1 @@
-web: python view.py $PORT
+web: python view.py $PATH
