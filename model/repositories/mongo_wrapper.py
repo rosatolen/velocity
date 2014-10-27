@@ -1,11 +1,18 @@
+import os
 from pymongo import MongoClient
 
 
 class MongoWrapper:
     def __init__(self):
-        self.tasks = MongoClient('mongodb://localhost:27017').velocity.tasks
-        self.rewards = MongoClient('mongodb://localhost:27017').velocity.rewards
-        self.rapport = MongoClient('mongodb://localhost:27017').velocity.rapport
+        try:
+            mongolab_uri = os.environ['MONGOLAB_URI']
+            client = MongoClient(mongolab_uri)
+        except KeyError:
+            client = MongoClient('mongodb://localhost:27017')
+
+        self.tasks = client.velocity.tasks
+        self.rewards = client.velocity.rewards
+        self.rapport = client.velocity.rapport
 
     def insert_reward(self, reward):
         self.rewards.insert(reward)
