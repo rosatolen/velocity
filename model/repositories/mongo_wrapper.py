@@ -12,7 +12,7 @@ class MongoWrapper:
 
         self.tasks = client.velocity.tasks
         self.rewards = client.velocity.rewards
-        self.rapport = client.velocity.rapport
+        self.bad_ass_points = client.velocity.bad_ass_points
 
     def insert_reward(self, reward):
         self.rewards.insert(reward)
@@ -30,11 +30,11 @@ class MongoWrapper:
         self.tasks.remove(task)
 
     def get(self, key):
-        return self.rapport.distinct(key)
+        return self.bad_ass_points.distinct(key)
 
-    def increment_rapport_total_by(self, number):
-        i = self.rapport.distinct('total').pop()
-        self.rapport.find_and_modify({'total': i}, {'$inc': {'total': number}})
+    def increment_bad_ass_points_by(self, number):
+        i = self.bad_ass_points.distinct('total').pop()
+        self.bad_ass_points.find_and_modify({'total': i}, {'$inc': {'total': number}})
 
-    def initialize_rapport(self, initial_value):
-        self.rapport.insert(initial_value)
+    def initialize_bad_ass_points(self, initial_value):
+        self.bad_ass_points.insert(initial_value)

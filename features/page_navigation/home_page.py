@@ -49,5 +49,5 @@ class HomePage:
     def complete_task(self):
         self.browser.find_element(By.NAME, 'complete').click()
 
-    def get_rapport_total(self):
-        return int(self.browser.find_element(By.NAME, 'rapport_total').text)
+    def get_bad_ass_points_total(self):
+        return int(self.browser.find_element(By.NAME, 'bad_ass_points_total').text)

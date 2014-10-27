@@ -32,4 +32,4 @@ def clean_database():
     velocity_database = MongoClient('mongodb://localhost:27017').velocity
     velocity_database.rewards.drop()
     velocity_database.tasks.drop()
-    velocity_database.rapport.drop()
+    velocity_database.bad_ass_points.drop()
