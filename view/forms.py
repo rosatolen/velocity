@@ -29,12 +29,19 @@ class SnailTaskForm:
     def not_existing_task(self, value):
         return not self.todo_list.contains(value)
 
+
 class QuailTaskForm:
     def __init__(self):
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
-            web.form.Textbox('new_quail_task_name', web.form.notnull, description=""),
+            web.form.Textbox('new_quail_task_name', web.form.notnull,
+                             Validator("Task already exists", self.not_existing_task),
+                             description=""),
             web.form.Button('submit_quail_task', html='Add Quail Task'),
         )
+
+    def not_existing_task(self, value):
+        return not self.todo_list.contains(value)
 
 
 class CompleteTaskForm:

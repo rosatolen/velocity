@@ -1,5 +1,6 @@
 import web
 import forms
+from home import Home
 from model.reward import Reward
 from model.repositories.reward_repository import RewardRepository
 from model.task import *
@@ -13,17 +14,11 @@ from model.repositories.mongo_wrapper import MongoWrapper
 class CreateReward:
     def __init__(self):
         self.reward_repository = RewardRepository(MongoWrapper())
-        self.task_repository = TaskRepository(MongoWrapper())
-        self.render = web.template.render('templates')
 
     def POST(self):
         reward_form = forms.RewardForm().form
-        snail_task_form = forms.SnailTaskForm().form
-        quail_task_form = forms.QuailTaskForm().form
-        rewards = self.reward_repository.get_rewards()
-        tasks = self.task_repository.get_tasks()
         if not reward_form.validates():
-            return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form)
+            return Home().render_home_page()
 
         new_reward = Reward(reward_form.d.new_reward_name, reward_form.d.new_reward_cost)
         self.reward_repository.add(new_reward)
@@ -32,24 +27,14 @@ class CreateReward:
 
 class CreateSnailTask:
     def __init__(self):
-        self.todo_list = TodoList(TaskRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
-        self.reward_repository = RewardRepository(MongoWrapper())
-        self.task_repository = TaskRepository(MongoWrapper())
-        self.bad_ass_points_purse = BadAssPointsPurse(BadAssPointsRepository(MongoWrapper()))
-        self.render = web.template.render('templates')
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
+                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
+        self.home_page = Home()
 
     def POST(self):
-        bad_ass_points_total = self.bad_ass_points_purse.total
-        rewards = self.reward_repository.get_rewards()
-        tasks = self.task_repository.get_tasks()
-
-        reward_form = forms.RewardForm().form
-        snail_task_form = forms.SnailTaskForm().form
-        quail_task_form = forms.QuailTaskForm().form
-        complete_task_form = forms.CompleteTaskForm().form
-
+        snail_task_form = self.home_page.snail_task_form
         if not snail_task_form.validates():
-            return self.render.home(bad_ass_points_total, rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form)
+            return self.home_page.render_home_page()
 
         new_task = SnailTask(snail_task_form.d.new_snail_task_name)
         self.todo_list.add(new_task)
@@ -59,17 +44,12 @@ class CreateSnailTask:
 class CreateQuailTask:
     def __init__(self):
         self.task_repository = TaskRepository(MongoWrapper())
-        self.reward_repository = RewardRepository(MongoWrapper())
-        self.render = web.template.render('templates')
+        self.home_page = Home()
 
     def POST(self):
-        reward_form = forms.RewardForm().form
-        snail_task_form = forms.SnailTaskForm().form
-        quail_task_form = forms.QuailTaskForm().form
-        rewards = self.reward_repository.get_rewards()
-        tasks = self.task_repository.get_tasks()
+        quail_task_form = self.home_page.quail_task_form
         if not quail_task_form.validates():
-            return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form)
+            return self.home_page.render_home_page()
 
         new_task = QuailTask(quail_task_form.d.new_quail_task_name)
         self.task_repository.add(new_task)
