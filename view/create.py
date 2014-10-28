@@ -43,7 +43,8 @@ class CreateSnailTask:
 
 class CreateQuailTask:
     def __init__(self):
-        self.task_repository = TaskRepository(MongoWrapper())
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
+                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.home_page = Home()
 
     def POST(self):
@@ -52,5 +53,5 @@ class CreateQuailTask:
             return self.home_page.render_home_page()
 
         new_task = QuailTask(quail_task_form.d.new_quail_task_name)
-        self.task_repository.add(new_task)
+        self.todo_list.add(new_task)
         raise web.seeother('/')
