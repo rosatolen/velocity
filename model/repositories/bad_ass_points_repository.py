@@ -6,7 +6,7 @@ class BadAssPointsRepository:
         self.mongo_repository.increment_bad_ass_points_by(number)
 
     def get_bad_ass_points_total(self):
-        total = self.mongo_repository.get('total')
+        total = self.mongo_repository.get_bad_ass_points_total('total')
         if not total:
             return None
         else:

@@ -29,7 +29,7 @@ class MongoWrapper:
     def remove(self, task):
         self.tasks.remove(task)
 
-    def get(self, key):
+    def get_bad_ass_points_total(self, key):
         return self.bad_ass_points.distinct(key)
 
     def increment_bad_ass_points_by(self, number):
