@@ -25,3 +25,9 @@ Feature: Task
     Given I create a quail task called "Finish the book DNS and BIND"
     Then I should only see one quail task called "Finish the book DNS and BIND"
     And I should get an error message that says "Task already exists"
+
+  Scenario: I should not be able to make a task with names that already exist
+    Given I create a quail task called "Finish the book DNS and BIND"
+    Given I create a snail task called "Finish the book DNS and BIND"
+    Then I should only see one quail task called "Finish the book DNS and BIND"
+    And I should get an error message that says "Task already exists"

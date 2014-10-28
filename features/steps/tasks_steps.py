@@ -47,6 +47,12 @@ def step_impl(context):
     context.expected_quail_tasks.append(book)
     context.home_page.add_quail_task(book)
 
+@given(u'I create a snail task called "Finish the book DNS and BIND"')
+def step_impl(context):
+    book = SnailTask("Finish the book DNS and BIND")
+    context.expected_snail_tasks.append(book)
+    context.home_page.add_snail_task(book)
+
 @when(u'I complete the quail task called "Finish the book DNS and BIND"')
 def step_impl(context):
     context.home_page.complete_task()
