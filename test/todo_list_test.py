@@ -36,3 +36,10 @@ def test_adding_bad_ass_points_to_bad_ass_points_purse():
     todo_list.complete(task_name)
 
     mock_bad_ass_points_purse.add_bad_ass_points_for.assert_called_with(QuailTask(task_name))
+
+def test_call_to_task__repository_when_adding_task_to_todo_list():
+    task = SnailTask('omanyte')
+
+    todo_list.add(task)
+
+    mock_task_storage.add.assert_called_with(task)

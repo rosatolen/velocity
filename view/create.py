@@ -3,7 +3,10 @@ import forms
 from model.reward import Reward
 from model.repositories.reward_repository import RewardRepository
 from model.task import *
+from model.bad_ass_points_purse import BadAssPointsPurse
 from model.repositories.task_repository import TaskRepository
+from model.repositories.bad_ass_points_repository import BadAssPointsRepository
+from model.todo_list import TodoList
 from model.repositories.mongo_wrapper import MongoWrapper
 
 
@@ -29,7 +32,7 @@ class CreateReward:
 
 class CreateSnailTask:
     def __init__(self):
-        self.task_repository = TaskRepository(MongoWrapper())
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.reward_repository = RewardRepository(MongoWrapper())
         self.render = web.template.render('templates')
 
@@ -38,12 +41,11 @@ class CreateSnailTask:
         snail_task_form = forms.SnailTaskForm().form
         quail_task_form = forms.QuailTaskForm().form
         rewards = self.reward_repository.get_rewards()
-        tasks = self.task_repository.get_tasks()
         if not snail_task_form.validates():
             return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form)
 
         new_task = SnailTask(snail_task_form.d.new_snail_task_name)
-        self.task_repository.add(new_task)
+        self.todo_list.add(new_task)
         raise web.seeother('/')
 
 

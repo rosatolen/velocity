@@ -11,3 +11,6 @@ class TodoList:
         task = self.task_repository.get_task(name)
         self.bad_ass_points_purse.add_bad_ass_points_for(task)
         self.task_repository.delete_task(name)
+
+    def add(self, task):
+        self.task_repository.add(task)
