@@ -56,3 +56,14 @@ def step_impl(context):
     actual_snail_tasks, actual_quail_tasks = context.home_page.get_current_tasks()
     unexpected_task = QuailTask("Finish the book DNS and BIND")
     tools.assert_not_in(unexpected_task, actual_quail_tasks)
+
+@then(u'I should only see one snail task called "Do expenses for October"')
+def step_impl(context):
+    actual_snail_tasks, actual_quail_tasks = context.home_page.get_current_tasks()
+    task = SnailTask('Do expenses for October')
+    tools.assert_equal(1, actual_snail_tasks.count(task))
+
+@then(u'I should get an error message that says "Task already exists"')
+def step_impl(context):
+    error_messages = context.home_page.get_error_messages()
+    tools.assert_in('Task already exists', error_messages)

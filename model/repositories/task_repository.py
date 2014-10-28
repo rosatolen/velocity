@@ -36,3 +36,9 @@ class TaskRepository:
 
     def delete_task(self, name):
         self.tasks.remove({'name': name})
+
+    def contains(self, task_name):
+        for task in self.tasks.find_tasks():
+            if task['name'] == task_name:
+                return True
+        return False

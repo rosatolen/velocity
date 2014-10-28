@@ -51,3 +51,9 @@ class HomePage:
 
     def get_bad_ass_points_total(self):
         return int(self.browser.find_element(By.NAME, 'bad_ass_points_total').text)
+
+    def get_error_messages(self):
+        error_messages = []
+        for error_message in self.browser.find_elements(By.CLASS_NAME, 'wrong'):
+            error_messages.append(error_message.text)
+        return error_messages

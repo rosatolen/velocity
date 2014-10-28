@@ -52,23 +52,14 @@ $:reward_form.submit_reward.render()
           </td>
       </tr>
       <tr>
-<form action="/create/task/snail" method="post">
-    <td>
-$:snail_task_form.new_snail_task_name.render()
-    </td>
-    <td>
-$:snail_task_form.submit_snail_task.render()
-    </td>
-</form>
       </tr>
       <tr>
-<form action="/create/task/quail" method="post">
-    <td>
-$:quail_task_form.new_quail_task_name.render()
-    </td>
-    <td>
-$:quail_task_form.submit_quail_task.render()
-    </td>
-</form>
       </tr>
     </table>
+
+<form action="/create/task/snail" method="post">
+    $:snail_task_form.render()
+</form>
+<form action="/create/task/quail" method="post">
+    $:quail_task_form.render()
+</form>

@@ -14,3 +14,6 @@ class TodoList:
 
     def add(self, task):
         self.task_repository.add(task)
+
+    def contains(self, task):
+        return self.task_repository.contains(task)
