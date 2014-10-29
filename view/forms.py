@@ -49,3 +49,10 @@ class CompleteTaskForm:
         self.form = web.form.Form(
             web.form.Button('complete', html="Complete Task")
         )
+
+
+class PurchaseRewardForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Button('purchase', html="Complete Task")
+        )

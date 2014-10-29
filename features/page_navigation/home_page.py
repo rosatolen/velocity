@@ -62,3 +62,6 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')
         input_field.send_keys('')
         self.browser.find_element(By.NAME, 'submit_reward').click()
+
+    def purchase_reward(self):
+        self.browser.find_element(By.NAME, 'purchase').click()

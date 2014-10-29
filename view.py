@@ -9,6 +9,7 @@ def main():
         '/create/task/snail', 'view.CreateSnailTask',
         '/create/task/quail', 'view.CreateQuailTask',
         '/complete/task/(.+)', 'view.CompleteTask',
+        '/purchase/(.+)', 'view.PurchaseReward',
     )
     app = web.application(urls, globals())
     app.run()

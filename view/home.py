@@ -17,6 +17,7 @@ class Home:
         self.reward_form = forms.RewardForm().form
         self.quail_task_form = forms.QuailTaskForm().form
         self.complete_task_form = forms.CompleteTaskForm().form
+        self.purchase_reward_form = forms.PurchaseRewardForm().form
 
     def render_home_page(self):
         bad_ass_points_total = self.bad_ass_points_purse.total
@@ -29,7 +30,8 @@ class Home:
                                 tasks,
                                 self.snail_task_form,
                                 self.quail_task_form,
-                                self.complete_task_form)
+                                self.complete_task_form,
+                                self.purchase_reward_form)
 
     def GET(self):
         return self.render_home_page()
