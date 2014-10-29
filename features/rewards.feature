@@ -9,7 +9,6 @@ Feature: Rewards
     When I save a reward with an empty name
     Then I should get an error message that says "Required"
 
-  @wip
   Scenario: You can buy rewards with bad ass points
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     And I have 100 Bad Ass Points

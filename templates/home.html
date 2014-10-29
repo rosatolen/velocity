@@ -14,7 +14,7 @@ $def with (bad_ass_points_total, rewards, reward_form, tasks, snail_task_form, q
         <td name='reward'>$reward.name</td>
         <td name='cost'>$reward.cost</td>
         <td>
-            <form action="/purchase/$reward.name">
+            <form action="/purchase/$reward.name" method="post">
                 $:purchase_reward_form.render()
             </form>
         </td>

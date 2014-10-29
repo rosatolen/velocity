@@ -43,6 +43,12 @@ def step_impl(context):
     context.home_page.add_reward(kiss)
 
 
+@then(u'I should not see the reward "A kiss from my girlfriend" listed')
+def step_impl(context):
+    actual_rewards = context.home_page.get_current_rewards()
+    tools.assert_false(actual_rewards.has_key('A kiss from my girlfriend'))
+
+
 @given(u'I have 100 Bad Ass Points')
 def step_impl(context):
     TestStorageAccess().set_bad_ass_points(100)
@@ -53,11 +59,7 @@ def step_impl(context):
     context.home_page.purchase_reward()
 
 
-@then(u'I should not see the reward "A kiss from my girlfriend" listed')
-def step_impl(context):
-    assert False
-
-
 @then(u'I should have 0 Bad Ass Points')
 def step_impl(context):
-    assert False
+    bad_ass_points_total = context.home_page.get_bad_ass_points_total()
+    tools.assert_equal(0, bad_ass_points_total)

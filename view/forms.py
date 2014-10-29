@@ -54,5 +54,5 @@ class CompleteTaskForm:
 class PurchaseRewardForm:
     def __init__(self):
         self.form = web.form.Form(
-            web.form.Button('purchase', html="Complete Task")
+            web.form.Button('purchase', html="Purchase")
         )

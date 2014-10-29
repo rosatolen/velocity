@@ -14,3 +14,6 @@ class BadAssPointsRepository:
 
     def initialize_bad_ass_points(self):
         self.mongo_repository.initialize_bad_ass_points({'total': 0})
+
+    def decrement_bad_ass_points_by(self, number):
+        self.mongo_repository.decrement_bad_ass_points_by(number)

@@ -40,3 +40,10 @@ class MongoWrapper:
 
     def initialize_bad_ass_points(self, initial_value):
         self.bad_ass_points.insert(initial_value)
+
+    def remove_reward(self, name):
+        self.rewards.remove({'name': name})
+
+    def decrement_bad_ass_points_by(self, number):
+        i = self.bad_ass_points.distinct('total').pop()
+        self.bad_ass_points.update({'total': i}, {'$inc': {'total': -number}})
