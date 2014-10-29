@@ -5,16 +5,16 @@ from pymongo import MongoClient
 class MongoWrapper:
     def __init__(self):
         try:
-            user = os.environ['DB_USER']
-            password = os.environ['DB_PASSWORD']
-            mongolab_uri = "mongodb://{}:{}@ds049150.mongolab.com:49150/heroku_app31040547".format(user, password)
-            client = MongoClient(mongolab_uri)
+            mongolab_uri = os.environ['MONGOLAB_URI']
+            db = MongoClient(mongolab_uri)
+            self.tasks = db.tasks
+            self.rewards = db.rewards
+            self.bad_ass_points = db.bad_ass_points
         except KeyError:
             client = MongoClient('mongodb://localhost:27017')
-
-        self.tasks = client.velocity.tasks
-        self.rewards = client.velocity.rewards
-        self.bad_ass_points = client.velocity.bad_ass_points
+            self.tasks = client.velocity.tasks
+            self.rewards = client.velocity.rewards
+            self.bad_ass_points = client.velocity.bad_ass_points
 
     def insert_reward(self, reward):
         self.rewards.insert(reward)
