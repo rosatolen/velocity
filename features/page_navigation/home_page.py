@@ -12,7 +12,7 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')
         input_field.send_keys(reward.name)
         input_field = self.browser.find_element(By.NAME, 'new_reward_cost')
-        input_field.send_keys(str(reward.cost))
+        input_field.send_keys(reward.cost)
         self.browser.find_element(By.NAME, 'submit_reward').click()
 
     def get_rewards(self):
@@ -63,6 +63,12 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')
         input_field.send_keys('')
         self.browser.find_element(By.NAME, 'submit_reward').click()
+
+    def add_reward_with_cost(self, cost):
+        input_field = self.browser.find_element(By.NAME, 'new_reward_cost')
+        input_field.send_keys(cost)
+        self.browser.find_element(By.NAME, 'submit_reward').click()
+
 
     def purchase_reward(self):
         self.browser.find_element(By.NAME, 'purchase').click()

@@ -74,3 +74,14 @@ def step_impl(context):
 def step_impl(context):
     error_messages = context.home_page.get_error_messages()
     tools.assert_in('Reward already exists', error_messages)
+
+
+@when(u'I add a reward with "blah" as the cost')
+def step_impl(context):
+    context.home_page.add_reward_with_cost("blah")
+
+
+@then(u'I should get an error message that says "Must be an integer"')
+def step_impl(context):
+    error_messages = context.home_page.get_error_messages()
+    tools.assert_in('Must be an integer', error_messages)

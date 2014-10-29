@@ -17,7 +17,9 @@ class RewardForm:
             web.form.Textbox('new_reward_name', web.form.notnull,
                              Validator("Reward already exists", self.not_existing_reward),
                              description="Name"),
-            web.form.Textbox('new_reward_cost', web.form.notnull, description="Cost"),
+            web.form.Textbox('new_reward_cost', web.form.notnull,
+                             Validator("Must be an integer", int),
+                             description="Cost"),
             web.form.Button('submit_reward', html='Add Reward'),
         )
 

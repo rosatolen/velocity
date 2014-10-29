@@ -9,6 +9,10 @@ Feature: Rewards
     When I save a reward with an empty name
     Then I should get an error message that says "Required"
 
+  Scenario: New Reward cost can only be entered with a number
+    When I add a reward with "blah" as the cost
+    Then I should get an error message that says "Must be an integer"
+
   Scenario: New rewards with the name of an existing reward cannot be added
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
