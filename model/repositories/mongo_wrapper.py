@@ -7,9 +7,9 @@ class MongoWrapper:
         try:
             mongolab_uri = os.environ['MONGOLAB_URI']
             db = MongoClient(mongolab_uri)
-            self.tasks = db.tasks
-            self.rewards = db.rewards
-            self.bad_ass_points = db.bad_ass_points
+            self.tasks = db.heroku_app31040547.tasks
+            self.rewards = db.heroku_app31040547.rewards
+            self.bad_ass_points = db.heroku_app31040547.bad_ass_points
         except KeyError:
             client = MongoClient('mongodb://localhost:27017')
             self.tasks = client.velocity.tasks
