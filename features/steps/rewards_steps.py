@@ -19,10 +19,8 @@ def step_impl(context):
 
 @then(u'I should be able to view all rewards')
 def step_impl(context):
-    actual_rewards = context.home_page.get_current_rewards()
-    for expected_reward in context.expected_rewards:
-        assert (actual_rewards.has_key(expected_reward.name))
-        assert (actual_rewards[expected_reward.name] == expected_reward.cost)
+    actual_rewards = context.home_page.get_rewards()
+    tools.assert_equal(context.expected_rewards, actual_rewards)
 
 
 @when(u'I save a reward with an empty name')
@@ -45,8 +43,8 @@ def step_impl(context):
 
 @then(u'I should not see the reward "A kiss from my girlfriend" listed')
 def step_impl(context):
-    actual_rewards = context.home_page.get_current_rewards()
-    tools.assert_false(actual_rewards.has_key('A kiss from my girlfriend'))
+    actual_rewards = context.home_page.get_rewards()
+    tools.assert_not_in(context.expected_rewards.pop(), actual_rewards)
 
 
 @given(u'I have 100 Bad Ass Points')

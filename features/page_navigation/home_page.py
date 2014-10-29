@@ -26,17 +26,6 @@ class HomePage:
             i += 1
         return actual_rewards
 
-    def get_current_rewards(self):
-        rewards = self.browser.find_elements(By.NAME, 'reward')
-        costs = self.browser.find_elements(By.NAME, 'cost')
-
-        actual_rewards = {}
-        i = 0
-        for reward in rewards:
-            actual_rewards[reward.text] = int(costs[i].text)
-            i += 1
-        return actual_rewards
-
     def add_snail_task(self, task):
         input_field = self.browser.find_element(By.NAME, 'new_snail_task_name')
         input_field.send_keys(task.name)
