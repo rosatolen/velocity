@@ -5,7 +5,9 @@ from pymongo import MongoClient
 class MongoWrapper:
     def __init__(self):
         try:
-            mongolab_uri = os.environ['MONGOLAB_URI']
+            user = os.environ['DB_USER']
+            password = os.environ['DB_PASSWORD']
+            mongolab_uri = "mongodb://{}:{}@ds049150.mongolab.com:49150/heroku_app31040547".format(user, password)
             client = MongoClient(mongolab_uri)
         except KeyError:
             client = MongoClient('mongodb://localhost:27017')
