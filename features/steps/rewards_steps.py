@@ -63,3 +63,16 @@ def step_impl(context):
 def step_impl(context):
     bad_ass_points_total = context.home_page.get_bad_ass_points_total()
     tools.assert_equal(0, bad_ass_points_total)
+
+
+@then(u'I should only see one reward called "A kiss from my girlfriend"')
+def step_impl(context):
+    actual_rewards = context.home_page.get_rewards()
+    reward = Reward('A kiss from my girlfriend', 100)
+    tools.assert_equal(1, actual_rewards.count(reward))
+
+
+@then(u'I should get an error message that says "Reward already exists"')
+def step_impl(context):
+    error_messages = context.home_page.get_error_messages()
+    tools.assert_in('Reward already exists', error_messages)

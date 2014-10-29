@@ -1,19 +1,28 @@
 import web
 from web.form import Validator
 from model.todo_list import TodoList
+from model.prize_area import PrizeArea
 from model.bad_ass_points_purse import BadAssPointsPurse
 from model.repositories.task_repository import TaskRepository
+from model.repositories.reward_repository import RewardRepository
+from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 
 
 class RewardForm:
     def __init__(self):
+        self.prize_area = PrizeArea(RewardRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
-            web.form.Textbox('new_reward_name', web.form.notnull, description="Name"),
+            web.form.Textbox('new_reward_name', web.form.notnull,
+                             Validator("Reward already exists", self.not_existing_reward),
+                             description="Name"),
             web.form.Textbox('new_reward_cost', web.form.notnull, description="Cost"),
             web.form.Button('submit_reward', html='Add Reward'),
         )
+
+    def not_existing_reward(self, value):
+        return not self.prize_area.contains(value)
 
 
 class SnailTaskForm:

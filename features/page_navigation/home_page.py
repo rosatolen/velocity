@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from model.task import SnailTask
 from model.task import QuailTask
+from model.reward import Reward
 
 
 class HomePage:
@@ -13,6 +14,17 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_reward_cost')
         input_field.send_keys(str(reward.cost))
         self.browser.find_element(By.NAME, 'submit_reward').click()
+
+    def get_rewards(self):
+        rewards = self.browser.find_elements(By.NAME, 'reward')
+        costs = self.browser.find_elements(By.NAME, 'cost')
+        actual_rewards = []
+        i = 0
+        for reward in rewards:
+            new_reward = Reward(reward.text, int(costs[i].text))
+            actual_rewards.append(new_reward)
+            i += 1
+        return actual_rewards
 
     def get_current_rewards(self):
         rewards = self.browser.find_elements(By.NAME, 'reward')

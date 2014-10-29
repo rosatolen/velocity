@@ -16,3 +16,9 @@ class RewardRepository:
 
     def remove(self, name):
         self.rewards_storage.remove_reward(name)
+
+    def contains(self, name):
+        for reward in self.rewards_storage.find_rewards():
+            if reward['name'] == name:
+                return True
+        return False

@@ -9,6 +9,12 @@ Feature: Rewards
     When I save a reward with an empty name
     Then I should get an error message that says "Required"
 
+  Scenario: New rewards with the name of an existing reward cannot be added
+    Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    Then I should only see one reward called "A kiss from my girlfriend"
+    And I should get an error message that says "Reward already exists"
+
   Scenario: You can buy rewards with bad ass points
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     And I have 100 Bad Ass Points
