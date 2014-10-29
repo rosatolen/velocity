@@ -57,3 +57,8 @@ class HomePage:
         for error_message in self.browser.find_elements(By.CLASS_NAME, 'wrong'):
             error_messages.append(error_message.text)
         return error_messages
+
+    def add_reward_with_empty_name(self):
+        input_field = self.browser.find_element(By.NAME, 'new_reward_name')
+        input_field.send_keys('')
+        self.browser.find_element(By.NAME, 'submit_reward').click()

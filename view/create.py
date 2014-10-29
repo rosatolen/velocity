@@ -14,11 +14,12 @@ from model.repositories.mongo_wrapper import MongoWrapper
 class CreateReward:
     def __init__(self):
         self.reward_repository = RewardRepository(MongoWrapper())
+        self.home_page = Home()
 
     def POST(self):
-        reward_form = forms.RewardForm().form
+        reward_form = self.home_page.reward_form
         if not reward_form.validates():
-            return Home().render_home_page()
+            return self.home_page.render_home_page()
 
         new_reward = Reward(reward_form.d.new_reward_name, reward_form.d.new_reward_cost)
         self.reward_repository.add(new_reward)
