@@ -25,3 +25,10 @@ Feature: Rewards
     When I purchase the reward
     Then I should not see the reward "A kiss from my girlfriend" listed
     And I should have 0 Bad Ass Points
+
+    @wip
+  Scenario: You can not buy rewards that you cannot afford
+    Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    When I purchase the reward
+    Then I should be able to view all rewards
+    And I should get an error message that says "Not enough points"

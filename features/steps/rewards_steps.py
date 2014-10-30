@@ -85,3 +85,9 @@ def step_impl(context):
 def step_impl(context):
     error_messages = context.home_page.get_error_messages()
     tools.assert_in('Must be an integer', error_messages)
+
+
+@then(u'I should get an error message that says "Not enough points"')
+def step_impl(context):
+    error_messages = context.home_page.get_error_messages()
+    tools.assert_in('Not enough points', error_messages)

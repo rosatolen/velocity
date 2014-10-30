@@ -6,8 +6,15 @@ class PrizeArea:
     def purchase(self, reward_name):
         for reward in self.reward_repository.get_rewards():
             if reward.name == reward_name:
+                if self.bad_ass_points_purse.total < reward.cost:
+                    raise NotPurchasable()
+
                 self.bad_ass_points_purse.subtract_reward_cost(reward.cost)
         self.reward_repository.remove(reward_name)
 
     def contains(self, reward_name):
         return self.reward_repository.contains(reward_name)
+
+
+class NotPurchasable(Exception):
+    pass
