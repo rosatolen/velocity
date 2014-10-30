@@ -10,7 +10,7 @@ class BadAssPointsPurse:
         if task.is_snail():
             self.bad_ass_points_storage.increment_bad_ass_points_by(1)
         else:
-            self.bad_ass_points_storage.increment_bad_ass_points_by(10)
+            self.bad_ass_points_storage.increment_bad_ass_points_by(8)
 
     def subtract_reward_cost(self, number):
         self.bad_ass_points_storage.decrement_bad_ass_points_by(number)

@@ -18,7 +18,7 @@ def test_bad_ass_points_are_incremented_by_one_for_Snail_task():
 def test_bad_ass_points_are_incremented_by_ten_for_Quail_task():
     bad_ass_points_purse.add_bad_ass_points_for(QuailTask('chiquail'))
 
-    mock_bad_ass_points_storage.increment_bad_ass_points_by.assert_called_with(10)
+    mock_bad_ass_points_storage.increment_bad_ass_points_by.assert_called_with(8)
 
 
 def test_subtracting_reward_cost_for_purchase():
