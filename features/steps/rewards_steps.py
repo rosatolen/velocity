@@ -1,20 +1,14 @@
 from nose import tools
 from model.reward import *
 from test_storage_access import TestStorageAccess
+from behave import use_step_matcher, given, when, then
+use_step_matcher("parse")
 
-
-@when(u'I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points')
-def step_impl(context):
-    kiss = Reward("A kiss from my girlfriend", 100)
+@when(u'I save a reward called "{reward_name}" with a cost of {reward_cost} Bad Ass Points')
+def step_impl(context, reward_name, reward_cost):
+    kiss = Reward(reward_name, int(reward_cost))
     context.expected_rewards.append(kiss)
     context.home_page.add_reward(kiss)
-
-
-@when(u'I save a reward called "Go to London" with a cost of 2000 Bad Ass Points')
-def step_impl(context):
-    london = Reward("Go to London", 2000)
-    context.expected_rewards.append(london)
-    context.home_page.add_reward(london)
 
 
 @then(u'I should be able to view all rewards')
@@ -28,28 +22,28 @@ def step_impl(context):
     context.home_page.add_reward_with_empty_name()
 
 
-@then(u'I should get an error message that says "Required"')
-def step_impl(context):
+@then(u'I should get an error message that says "{expected_error}"')
+def step_impl(context, expected_error):
     error_messages = context.home_page.get_validation_error_messages()
-    tools.assert_in('Required', error_messages)
+    tools.assert_in(expected_error, error_messages)
 
 
-@given(u'I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points')
-def step_impl(context):
-    kiss = Reward("A kiss from my girlfriend", 100)
+@given(u'I have a reward called "{reward_name}" with a cost of {reward_cost} Bad Ass Points')
+def step_impl(context, reward_name, reward_cost):
+    kiss = Reward(reward_name, int(reward_cost))
     context.expected_rewards.append(kiss)
     context.home_page.add_reward(kiss)
 
 
-@then(u'I should not see the reward "A kiss from my girlfriend" listed')
-def step_impl(context):
+@then(u'I should not see the reward "{name}" with a cost {cost} listed')
+def step_impl(context, name, cost):
     actual_rewards = context.home_page.get_rewards()
-    tools.assert_not_in(context.expected_rewards.pop(), actual_rewards)
+    tools.assert_not_in(Reward(name, int(cost)), actual_rewards)
 
 
-@given(u'I have 100 Bad Ass Points')
-def step_impl(context):
-    TestStorageAccess().set_bad_ass_points(100)
+@given(u'I have {amount} Bad Ass Points')
+def step_impl(context, amount):
+    TestStorageAccess().set_bad_ass_points(int(amount))
 
 
 @when(u'I purchase the reward')
@@ -57,23 +51,17 @@ def step_impl(context):
     context.home_page.purchase_reward()
 
 
-@then(u'I should have 0 Bad Ass Points')
-def step_impl(context):
+@then(u'I should have {amount} Bad Ass Points')
+def step_impl(context, amount):
     bad_ass_points_total = context.home_page.get_bad_ass_points_total()
-    tools.assert_equal(0, bad_ass_points_total)
+    tools.assert_equal(int(amount), bad_ass_points_total)
 
 
-@then(u'I should only see one reward called "A kiss from my girlfriend"')
-def step_impl(context):
+@then(u'I should only see one reward called "{reward_name}" with a cost of {cost}')
+def step_impl(context, reward_name, cost):
     actual_rewards = context.home_page.get_rewards()
-    reward = Reward('A kiss from my girlfriend', 100)
+    reward = Reward(reward_name, int(cost))
     tools.assert_equal(1, actual_rewards.count(reward))
-
-
-@then(u'I should get an error message that says "Reward already exists"')
-def step_impl(context):
-    error_messages = context.home_page.get_validation_error_messages()
-    tools.assert_in('Reward already exists', error_messages)
 
 
 @when(u'I add a reward with "blah" as the cost')
@@ -81,13 +69,7 @@ def step_impl(context):
     context.home_page.add_reward_with_cost("blah")
 
 
-@then(u'I should get an error message that says "Must be an integer"')
-def step_impl(context):
-    error_messages = context.home_page.get_validation_error_messages()
-    tools.assert_in('Must be an integer', error_messages)
-
-
-@then(u'I should get an error message that says "Not enough points"')
-def step_impl(context):
+@then(u'I should get an upper level error message that says "{message}"')
+def step_impl(context, message):
     error_message = context.home_page.get_upper_level_error_messages()
-    tools.assert_equal('Not enough points', error_message)
+    tools.assert_equal(message, error_message)
