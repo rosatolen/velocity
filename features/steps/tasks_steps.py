@@ -47,7 +47,7 @@ def step_impl(context, task):
     context.expected_quail_tasks.append(book)
     context.home_page.add_quail_task(book)
 
-@when(u'I complete the quail task called "Finish the book DNS and BIND"')
+@when(u'I complete the quail task called "Row 5k"')
 def step_impl(context):
     context.home_page.complete_task()
 
