@@ -30,7 +30,7 @@ def step_impl(context):
 
 @then(u'I should get an error message that says "Required"')
 def step_impl(context):
-    error_messages = context.home_page.get_error_messages()
+    error_messages = context.home_page.get_validation_error_messages()
     tools.assert_in('Required', error_messages)
 
 
@@ -72,7 +72,7 @@ def step_impl(context):
 
 @then(u'I should get an error message that says "Reward already exists"')
 def step_impl(context):
-    error_messages = context.home_page.get_error_messages()
+    error_messages = context.home_page.get_validation_error_messages()
     tools.assert_in('Reward already exists', error_messages)
 
 
@@ -83,11 +83,11 @@ def step_impl(context):
 
 @then(u'I should get an error message that says "Must be an integer"')
 def step_impl(context):
-    error_messages = context.home_page.get_error_messages()
+    error_messages = context.home_page.get_validation_error_messages()
     tools.assert_in('Must be an integer', error_messages)
 
 
 @then(u'I should get an error message that says "Not enough points"')
 def step_impl(context):
-    error_messages = context.home_page.get_error_messages()
-    tools.assert_in('Not enough points', error_messages)
+    error_message = context.home_page.get_upper_level_error_messages()
+    tools.assert_equal('Not enough points', error_message)

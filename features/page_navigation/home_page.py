@@ -53,11 +53,14 @@ class HomePage:
     def get_bad_ass_points_total(self):
         return int(self.browser.find_element(By.NAME, 'bad_ass_points_total').text)
 
-    def get_error_messages(self):
+    def get_validation_error_messages(self):
         error_messages = []
         for error_message in self.browser.find_elements(By.CLASS_NAME, 'wrong'):
             error_messages.append(error_message.text)
         return error_messages
+
+    def get_upper_level_error_messages(self):
+        return self.browser.find_element(By.NAME, 'error').text
 
     def add_reward_with_empty_name(self):
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')

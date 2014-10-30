@@ -6,4 +6,5 @@ class TestStorageAccess:
         self.bad_ass_points = MongoClient('mongodb://localhost:27017').velocity.bad_ass_points
 
     def set_bad_ass_points(self, number):
-        self.bad_ass_points.insert({'total': number})
+        i = self.bad_ass_points.distinct('total').pop()
+        self.bad_ass_points.update({'total': i}, {'$set': {'total': number}})

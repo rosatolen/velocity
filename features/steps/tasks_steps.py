@@ -77,5 +77,5 @@ def step_impl(context):
 
 @then(u'I should get an error message that says "Task already exists"')
 def step_impl(context):
-    error_messages = context.home_page.get_error_messages()
+    error_messages = context.home_page.get_validation_error_messages()
     tools.assert_in('Task already exists', error_messages)

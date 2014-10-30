@@ -19,12 +19,13 @@ class Home:
         self.complete_task_form = forms.CompleteTaskForm().form
         self.purchase_reward_form = forms.PurchaseRewardForm().form
 
-    def render_home_page(self):
+    def render_home_page(self, error=None):
         bad_ass_points_total = self.bad_ass_points_purse.total
         rewards = self.reward_repository.get_rewards()
         tasks = self.task_repository.get_tasks()
 
-        return self.render.home(bad_ass_points_total,
+        return self.render.home(error,
+                                bad_ass_points_total,
                                 rewards,
                                 self.reward_form,
                                 tasks,

@@ -1,6 +1,9 @@
-$def with (bad_ass_points_total, rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form, purchase_reward_form)
+$def with (error, bad_ass_points_total, rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form, purchase_reward_form)
 
 <title>Velocity</title>
+
+    $if error is not None:
+        <span name="error">$error</span>
 
     <h3>Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h3>
 

@@ -1,6 +1,6 @@
 import web
 from home import Home
-from model.prize_area import PrizeArea
+from model.prize_area import PrizeArea, NotPurchasable
 from model.bad_ass_points_purse import BadAssPointsPurse
 from model.repositories.reward_repository import RewardRepository
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
@@ -13,10 +13,9 @@ class PurchaseReward:
                                     BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.home_page = Home()
 
-    def POST(self, name):
-        purchase_form = self.home_page.purchase_reward_form
-        if not purchase_form.validates():
-            return self.home_page.render_home_page()
-
-        self.prize_area.purchase(name)
-        raise web.seeother('/')
+    def POST(self, reward_name):
+        try:
+            self.prize_area.purchase(reward_name)
+            raise web.seeother('/')
+        except NotPurchasable:
+            return self.home_page.render_home_page(error='Not enough points')

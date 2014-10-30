@@ -20,13 +20,12 @@ Feature: Rewards
     And I should get an error message that says "Reward already exists"
 
   Scenario: You can buy rewards with bad ass points
+    Given I have 100 Bad Ass Points
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
-    And I have 100 Bad Ass Points
     When I purchase the reward
     Then I should not see the reward "A kiss from my girlfriend" listed
     And I should have 0 Bad Ass Points
 
-    @wip
   Scenario: You can not buy rewards that you cannot afford
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     When I purchase the reward
