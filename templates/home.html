@@ -5,7 +5,7 @@ $def with (error, bad_ass_points_total, rewards, reward_form, tasks, snail_task_
     $if error is not None:
         <span name="error">$error</span>
 
-    <h3>Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h3>
+    <h4>Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h4>
 
     <table>
       <tr>
@@ -23,6 +23,8 @@ $def with (error, bad_ass_points_total, rewards, reward_form, tasks, snail_task_
         </td>
       </tr>
     </table>
+        Recommendation:
+        </br>Have the reward's cost fall close to the monetary cost.
 <form action="/create/reward" method="post">
 $:reward_form.render()
 </form>
@@ -57,6 +59,8 @@ $:reward_form.render()
       </tr>
     </table>
 
+Recommendation: Size your task by effort cost
+</br>(Snail < Quail < Whale)
 <form action="/create/task/snail" method="post">
     $:snail_task_form.render()
 </form>
