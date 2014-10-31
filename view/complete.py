@@ -1,5 +1,6 @@
 import web
 import forms
+from home import Home
 from model.repositories.reward_repository import RewardRepository
 from model.repositories.task_repository import TaskRepository
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
@@ -10,21 +11,13 @@ from model.todo_list import TodoList
 
 class CompleteTask:
     def __init__(self):
-        self.reward_repository = RewardRepository(MongoWrapper())
-        self.task_repository = TaskRepository(MongoWrapper())
-        self.render = web.template.render('templates')
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
+        self.home = Home()
 
     def POST(self, name):
-        reward_form = forms.RewardForm().form
-        snail_task_form = forms.SnailTaskForm().form
-        quail_task_form = forms.QuailTaskForm().form
-        complete_task_form = forms.CompleteTaskForm().form
-        rewards = self.reward_repository.get_rewards()
-        tasks = self.task_repository.get_tasks()
-
+        complete_task_form = self.home.complete_task_form
         if not complete_task_form.validates():
-            return self.render.home(rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form)
+            return self.home.render_home_page()
 
-        todo_list = TodoList(TaskRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
-        todo_list.complete(name)
+        self.todo_list.complete(name)
         raise web.seeother('/')

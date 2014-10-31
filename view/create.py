@@ -56,3 +56,19 @@ class CreateQuailTask:
         new_task = QuailTask(quail_task_form.d.new_quail_task_name)
         self.todo_list.add(new_task)
         raise web.seeother('/')
+
+
+class CreateWatermelonTask:
+    def __init__(self):
+        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
+                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
+        self.home_page = Home()
+
+    def POST(self):
+        watermelon_task_form = self.home_page.watermelon_task_form
+        if not watermelon_task_form.validates():
+            return self.home_page.render_home_page()
+
+        new_task = WatermelonTask(watermelon_task_form.d.new_watermelon_task_name)
+        self.todo_list.add(new_task)
+        raise web.seeother('/')

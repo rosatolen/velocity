@@ -31,3 +31,8 @@ Feature: Task
     Given I create a snail task called "Row 5k"
     Then I should only see one quail task called "Row 5k"
     And I should get an error message that says "Task already exists"
+
+  Scenario: Watermelon tasks
+    Given I create a watermelon task called "Finish the book DNS and BIND"
+    When I complete the watermelon task called "Finish the book DNS and BIND"
+    Then I should see my bad ass points increase to 21

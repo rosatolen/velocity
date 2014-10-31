@@ -36,6 +36,11 @@ class HomePage:
         input_field.send_keys(task.name)
         self.browser.find_element(By.NAME, 'submit_quail_task').click()
 
+    def add_watermelon_task(self, task):
+        input_field = self.browser.find_element(By.NAME, 'new_watermelon_task_name')
+        input_field.send_keys(task.name)
+        self.browser.find_element(By.NAME, 'submit_watermelon_task').click()
+
     def get_current_tasks(self):
         snail_tasks = self.browser.find_elements(By.NAME, 'snail_task_name')
         quail_tasks = self.browser.find_elements(By.NAME, 'quail_task_name')
@@ -71,7 +76,6 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_reward_cost')
         input_field.send_keys(cost)
         self.browser.find_element(By.NAME, 'submit_reward').click()
-
 
     def purchase_reward(self):
         self.browser.find_element(By.NAME, 'purchase').click()

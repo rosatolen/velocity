@@ -1,4 +1,4 @@
-$def with (error, bad_ass_points_total, rewards, reward_form, tasks, snail_task_form, quail_task_form, complete_task_form, purchase_reward_form)
+$def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form)
 
 <title>Relocity</title>
 
@@ -36,7 +36,7 @@ $:reward_form.render()
       </tr>
       $for task in tasks:
       <tr>
-        $if task.is_snail():
+        $if is_snail(task):
           <td name='snail_task_name'>$task.name</td>
           <td>Snail</td>
           <td>
@@ -44,9 +44,17 @@ $:reward_form.render()
                   $:complete_task_form.render()
               </form>
           </td>
-        $else:
+        $elif is_quail(task):
           <td name='quail_task_name'>$task.name</td>
           <td>Quail</td>
+          <td>
+              <form action="/complete/task/$task.name" method="post">
+                  $:complete_task_form.render()
+              </form>
+          </td>
+        $else:
+          <td name='watermelon_task_name'>$task.name</td>
+          <td>Watermelon</td>
           <td>
               <form action="/complete/task/$task.name" method="post">
                   $:complete_task_form.render()
@@ -60,10 +68,13 @@ $:reward_form.render()
     </table>
 
 Recommendation: Size your task by effort cost
-</br>(Snail < Quail < Whale)
+<br>(Snail < Quail < Whale)
 <form action="/create/task/snail" method="post">
     $:snail_task_form.render()
 </form>
 <form action="/create/task/quail" method="post">
     $:quail_task_form.render()
+</form>
+<form action="/create/task/watermelon" method="post">
+    $:watermelon_task_form.render()
 </form>

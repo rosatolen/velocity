@@ -1,8 +1,7 @@
 import mock
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 from model.todo_list import TodoList
-from model.task import SnailTask
-from model.task import QuailTask
+from model.task import SnailTask, QuailTask, WatermelonTask
 from model.bad_ass_points_purse import BadAssPointsPurse
 
 mock_bad_ass_points_storage = mock.create_autospec(BadAssPointsRepository)
@@ -15,10 +14,16 @@ def test_bad_ass_points_are_incremented_by_one_for_Snail_task():
     mock_bad_ass_points_storage.increment_bad_ass_points_by.assert_called_with(1)
 
 
-def test_bad_ass_points_are_incremented_by_ten_for_Quail_task():
+def test_bad_ass_points_are_incremented_by_8_for_Quail_task():
     bad_ass_points_purse.add_bad_ass_points_for(QuailTask('chiquail'))
 
     mock_bad_ass_points_storage.increment_bad_ass_points_by.assert_called_with(8)
+
+
+def test_bad_ass_points_are_incremented_by_21_for_Watermelon_task():
+    bad_ass_points_purse.add_bad_ass_points_for(WatermelonTask('nom nom'))
+
+    mock_bad_ass_points_storage.increment_bad_ass_points_by.assert_called_with(21)
 
 
 def test_subtracting_reward_cost_for_purchase():

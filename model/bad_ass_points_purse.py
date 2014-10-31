@@ -1,3 +1,6 @@
+from task import SnailTask, QuailTask
+
+
 class BadAssPointsPurse:
     def __init__(self, bad_ass_points_storage):
         self.bad_ass_points_storage = bad_ass_points_storage
@@ -7,10 +10,12 @@ class BadAssPointsPurse:
             self.total = 0
 
     def add_bad_ass_points_for(self, task):
-        if task.is_snail():
+        if isinstance(task, SnailTask):
             self.bad_ass_points_storage.increment_bad_ass_points_by(1)
-        else:
+        elif isinstance(task, QuailTask):
             self.bad_ass_points_storage.increment_bad_ass_points_by(8)
+        else:
+            self.bad_ass_points_storage.increment_bad_ass_points_by(21)
 
     def subtract_reward_cost(self, number):
         self.bad_ass_points_storage.decrement_bad_ass_points_by(number)
