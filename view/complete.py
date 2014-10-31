@@ -1,7 +1,6 @@
 import web
 import forms
 from home import Home
-from model.repositories.reward_repository import RewardRepository
 from model.repositories.task_repository import TaskRepository
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 from model.repositories.mongo_wrapper import MongoWrapper

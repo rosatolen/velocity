@@ -60,3 +60,12 @@ def test_knowledge_that_it_does_not_contain_a_task():
     mock_task_storage.contains.return_value = False
 
     tools.assert_false(todo_list.contains(task))
+
+
+def test_get_tasks():
+    expected_task = SnailTask('omanyte')
+    mock_task_storage.get_tasks.return_value = expected_task
+
+    actual_tasks = todo_list.get_tasks()
+
+    tools.assert_equal(expected_task, actual_tasks)

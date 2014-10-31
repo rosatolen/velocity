@@ -2,6 +2,7 @@ import web
 import forms
 from home import Home
 from model.reward import Reward
+from model.prize_area import PrizeArea
 from model.repositories.reward_repository import RewardRepository
 from model.task import *
 from model.bad_ass_points_purse import BadAssPointsPurse
@@ -13,7 +14,7 @@ from model.repositories.mongo_wrapper import MongoWrapper
 
 class CreateReward:
     def __init__(self):
-        self.reward_repository = RewardRepository(MongoWrapper())
+        self.prize_area = PrizeArea(RewardRepository(MongoWrapper()), BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.home_page = Home()
 
     def POST(self):
@@ -22,7 +23,7 @@ class CreateReward:
             return self.home_page.render_home_page()
 
         new_reward = Reward(reward_form.d.new_reward_name, reward_form.d.new_reward_cost)
-        self.reward_repository.add(new_reward)
+        self.prize_area.add(new_reward)
         raise web.seeother('/')
 
 

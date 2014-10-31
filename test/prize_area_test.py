@@ -26,6 +26,23 @@ def test_knowledge_that_it_contains_an_award():
     tools.assert_true(prize_area.contains(task_name))
 
 
+def test_returns_rewards():
+    expected_rewards = [Reward('kisses', 1000)]
+    mock_rewards_repository.get_rewards.return_value = expected_rewards
+
+    actual_rewards = prize_area.get_rewards()
+
+    tools.assert_equal(expected_rewards, actual_rewards)
+
+
+def test_add_rewards():
+    reward = Reward('kisses', 1000)
+
+    prize_area.add(reward)
+
+    mock_rewards_repository.add.assert_called_with(reward)
+
+
 @tools.raises(NotPurchasable)
 def test_throws_error_when_reward_cannot_be_purchased():
     rewards = [Reward('kisses', 1000)]

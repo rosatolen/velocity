@@ -15,6 +15,12 @@ class PrizeArea:
     def contains(self, reward_name):
         return self.reward_repository.contains(reward_name)
 
+    def get_rewards(self):
+        return self.reward_repository.get_rewards()
+
+    def add(self, reward):
+        self.reward_repository.add(reward)
+
 
 class NotPurchasable(Exception):
     pass
