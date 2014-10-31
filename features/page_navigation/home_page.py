@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
-from model.task import SnailTask
-from model.task import QuailTask
+from model.task import SnailTask, QuailTask, WatermelonTask
 from model.reward import Reward
 
 
@@ -40,6 +39,13 @@ class HomePage:
         input_field = self.browser.find_element(By.NAME, 'new_watermelon_task_name')
         input_field.send_keys(task.name)
         self.browser.find_element(By.NAME, 'submit_watermelon_task').click()
+
+    def get_current_watermelons(self):
+        watermelons = self.browser.find_elements(By.NAME, 'watermelon_task_name')
+        actual_watermelons = []
+        for watermelon in watermelons:
+            actual_watermelons.append(WatermelonTask(watermelon.text))
+        return actual_watermelons
 
     def get_current_tasks(self):
         snail_tasks = self.browser.find_elements(By.NAME, 'snail_task_name')

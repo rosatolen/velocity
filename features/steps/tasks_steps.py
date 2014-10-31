@@ -86,6 +86,13 @@ def step_impl(context, task_name):
     context.home_page.add_watermelon_task(task)
 
 
+@then(u'I should only see one watermelon task called "{task}"')
+def step_impl(context, task):
+    actual_watermelon_tasks = context.home_page.get_current_watermelons()
+    task = WatermelonTask(task)
+    tools.assert_equal(1, actual_watermelon_tasks.count(task))
+
+
 @when(u'I complete the watermelon task called "Finish the book DNS and BIND"')
 def step_impl(context):
     context.home_page.complete_task()

@@ -32,6 +32,12 @@ Feature: Task
     Then I should only see one quail task called "Row 5k"
     And I should get an error message that says "Task already exists"
 
+  Scenario: I should not be able to add multiple Watermelon tasks
+    Given I create a watermelon task called "Finish the book DNS and BIND"
+    Given I create a watermelon task called "Finish the book DNS and BIND"
+    Then I should only see one watermelon task called "Finish the book DNS and BIND"
+    And I should get an error message that says "Task already exists"
+
   Scenario: Watermelon tasks
     Given I create a watermelon task called "Finish the book DNS and BIND"
     When I complete the watermelon task called "Finish the book DNS and BIND"
