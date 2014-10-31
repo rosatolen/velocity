@@ -84,8 +84,6 @@ def step_impl(context, task):
 def step_impl(context, task_name):
     task = WatermelonTask(task_name)
     context.home_page.add_watermelon_task(task)
-    import time
-    time.sleep(10)
 
 
 @when(u'I complete the watermelon task called "Finish the book DNS and BIND"')
