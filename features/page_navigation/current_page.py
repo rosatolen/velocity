@@ -3,9 +3,16 @@ from model.task import SnailTask, QuailTask, WatermelonTask
 from model.reward import Reward
 
 
-class HomePage:
+class CurrentPage:
     def __init__(self, context):
         self.browser = context.browser
+
+    def login(self, username):
+        input_field = self.browser.find_element(By.NAME, 'username')
+        input_field.send_keys(username)
+        input_field = self.browser.find_element(By.NAME, 'password')
+        input_field.send_keys('password')
+        self.browser.find_element(By.NAME, 'login').click()
 
     def add_reward(self, reward):
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')

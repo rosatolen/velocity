@@ -1,1 +1,1 @@
-from home_page import *
+from current_page import *

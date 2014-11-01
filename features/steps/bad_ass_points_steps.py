@@ -12,5 +12,5 @@ def step_impl(context, amount):
 
 @then(u'I should see my bad ass points increase to {amount}')
 def step_impl(context, amount):
-    bad_ass_points_total = context.home_page.get_bad_ass_points_total()
+    bad_ass_points_total = context.current_page.get_bad_ass_points_total()
     tools.assert_equal(int(amount), bad_ass_points_total)

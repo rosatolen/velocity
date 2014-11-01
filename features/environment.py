@@ -9,7 +9,7 @@ def before_all(context):
     clean_database()
     context.server = subprocess.Popen(["python view.py 1234"], stdout=subprocess.PIPE, shell=True)
     context.browser = webdriver.Chrome()
-    context.home_page = HomePage(context)
+    context.current_page = CurrentPage(context)
 
 
 def before_scenario(context, scenario):

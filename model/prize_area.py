@@ -8,7 +8,6 @@ class PrizeArea:
             if reward.name == reward_name:
                 if self.bad_ass_points_purse.total < reward.cost:
                     raise NotPurchasable()
-
                 self.bad_ass_points_purse.subtract_reward_cost(reward.cost)
         self.reward_repository.remove(reward_name)
 
