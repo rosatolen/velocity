@@ -2,10 +2,13 @@ $def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_
 
 <title>Relocity</title>
 
+    <a name="logout" href="/logout">Logout</a>
+    <br>
+
     $if error is not None:
         <span name="error">$error</span>
 
-    <h4>Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h4>
+    <h4 name="bad_ass_points">Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h4>
 
     <table>
       <tr>

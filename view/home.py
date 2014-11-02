@@ -44,7 +44,10 @@ class Home:
                                 self.purchase_reward_form)
 
     def GET(self):
-        return self.render_home_page()
+        if web.config.get('session') is None:
+            raise web.seeother('/login')
+        else:
+            return self.render_home_page()
 
 
 def is_snail(task):

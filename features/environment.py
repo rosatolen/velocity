@@ -33,3 +33,4 @@ def clean_database():
     velocity_database.rewards.drop()
     velocity_database.tasks.drop()
     velocity_database.bad_ass_points.drop()
+    velocity_database.users.drop()

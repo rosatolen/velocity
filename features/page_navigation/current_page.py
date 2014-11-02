@@ -1,3 +1,4 @@
+from nose import tools
 from selenium.webdriver.common.by import By
 from model.task import SnailTask, QuailTask, WatermelonTask
 from model.reward import Reward
@@ -7,12 +8,41 @@ class CurrentPage:
     def __init__(self, context):
         self.browser = context.browser
 
+    def navigate_to_home_page(self):
+        self.browser.get('localhost:1234')
+
+    def assert_that_current_page_is_login_page(self):
+        current_page_name = self.browser.find_element(By.NAME, 'page_name').text
+        tools.assert_equal('Login', current_page_name)
+
+    def navigate_to_registration_page(self):
+        self.browser.get('localhost:1234/register')
+
+    def register(self, username):
+        input_field = self.browser.find_element(By.NAME, 'username')
+        input_field.send_keys(username)
+        input_field = self.browser.find_element(By.NAME, 'password')
+        input_field.send_keys('password')
+        input_field = self.browser.find_element(By.NAME, 'retype_password')
+        input_field.send_keys('password')
+        self.browser.find_element(By.NAME, 'register').click()
+
+    def navigate_to_login_page(self):
+        self.browser.get('localhost:1234/login')
+
     def login(self, username):
         input_field = self.browser.find_element(By.NAME, 'username')
         input_field.send_keys(username)
         input_field = self.browser.find_element(By.NAME, 'password')
         input_field.send_keys('password')
         self.browser.find_element(By.NAME, 'login').click()
+
+    def logout(self):
+        self.browser.find_element(By.NAME, 'logout').click()
+
+    def assert_that_current_page_is_home_page(self):
+        bad_ass_points = self.browser.find_element(By.NAME, 'bad_ass_points').text
+        tools.assert_true('Bad Ass Points Total:' in bad_ass_points)
 
     def add_reward(self, reward):
         input_field = self.browser.find_element(By.NAME, 'new_reward_name')

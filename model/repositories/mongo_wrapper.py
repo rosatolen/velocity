@@ -7,11 +7,13 @@ class MongoWrapper:
         try:
             mongolab_uri = os.environ['MONGOLAB_URI']
             db = MongoClient(mongolab_uri)
+            self.users = db.get_default_database().users
             self.tasks = db.get_default_database().tasks
             self.rewards = db.get_default_database().rewards
             self.bad_ass_points = db.get_default_database().bad_ass_points
         except KeyError:
             client = MongoClient('mongodb://localhost:27017')
+            self.users = client.velocity.users
             self.tasks = client.velocity.tasks
             self.rewards = client.velocity.rewards
             self.bad_ass_points = client.velocity.bad_ass_points
@@ -47,3 +49,10 @@ class MongoWrapper:
     def decrement_bad_ass_points_by(self, number):
         i = self.bad_ass_points.distinct('total').pop()
         self.bad_ass_points.update({'total': i}, {'$inc': {'total': -number}})
+
+    def create_document(self, username, password, salt):
+        self.users.insert({'username': username, 'password': password, 'salt': salt})
+
+    def get_salt(self, username):
+        user = self.users.find_one({'username': username})
+        return user['salt']

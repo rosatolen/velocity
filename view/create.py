@@ -22,6 +22,8 @@ class CreateReward:
         if not reward_form.validates():
             return self.home_page.render_home_page()
 
+        print 'reward.d ' + str(reward_form.d.new_reward_name)
+        print 'reward.d ' + str(reward_form.d.new_reward_cost)
         new_reward = Reward(reward_form.d.new_reward_name, reward_form.d.new_reward_cost)
         self.prize_area.add(new_reward)
         raise web.seeother('/')

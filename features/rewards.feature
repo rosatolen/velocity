@@ -1,5 +1,9 @@
 Feature: Rewards
 
+  Background:
+    Given I register as the user "Athena"
+    When I try to login as "Athena"
+
   Scenario: Rewards are remembered by the system
     When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     When I save a reward called "Go to London" with a cost of 2000 Bad Ass Points
