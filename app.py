@@ -1,7 +1,7 @@
 import web
 import view
 from model.task import SnailTask
-from model.user import User
+from model.user import User, InvalidCredentials
 from model.repositories.user_repository import UserRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 
@@ -28,10 +28,6 @@ def create_session():
     return web.session.Session(app, web.session.DiskStore('sessions'))
 
 
-def kill_session():
-    web.config.session.kill()
-
-
 class Login:
     def __init__(self):
         self.login_form = web.form.Form(
@@ -40,19 +36,26 @@ class Login:
             web.form.Button('login', html='Login')
         )
 
+    def render_login_page(self, error=None):
+        return web.template.render('templates', globals()).login(error, self.login_form)
+
     def GET(self):
-        return web.template.render('templates', globals()).login(self.login_form)
+        return self.render_login_page()
 
     def POST(self):
         if not self.login_form.validates():
-            return web.template.render('templates', globals()).login(self.login_form)
+            return self.render_login_page()
 
         username = self.login_form.d.username
         password = self.login_form.d.password
-        user = User(username, password, UserRepository(MongoWrapper()))
 
-        web.config.session = create_session()
-        raise web.seeother('/')
+        try:
+            user = User(username, password, UserRepository(MongoWrapper()))
+            web.config.session = create_session()
+            raise web.seeother('/')
+        except InvalidCredentials:
+            error = "Invalid Username or Password"
+            return self.render_login_page(error)
 
 
 class Logout:
@@ -60,7 +63,7 @@ class Logout:
         pass
 
     def GET(self):
-        kill_session()
+        web.config.session = None
         raise web.seeother('/login')
 
 
