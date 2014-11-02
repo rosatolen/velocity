@@ -1,6 +1,7 @@
 Feature: Task
 
   Background:
+    Given I reset my user
     Given I register as the user "Athena"
     When I try to login as "Athena"
 
@@ -22,25 +23,25 @@ Feature: Task
     Given I create a snail task called "Do expenses for October"
     Given I create a snail task called "Do expenses for October"
     Then I should only see one snail task called "Do expenses for October"
-    And I should get an error message that says "Task already exists"
+    And I should get an input error message that says "Task already exists"
 
   Scenario: I should not be able to make a quail task with names that already exist
     Given I create a quail task called "Row 5k"
     Given I create a quail task called "Row 5k"
     Then I should only see one quail task called "Row 5k"
-    And I should get an error message that says "Task already exists"
+    And I should get an input error message that says "Task already exists"
 
   Scenario: I should not be able to make a task with names that already exist
     Given I create a quail task called "Row 5k"
     Given I create a snail task called "Row 5k"
     Then I should only see one quail task called "Row 5k"
-    And I should get an error message that says "Task already exists"
+    And I should get an input error message that says "Task already exists"
 
   Scenario: I should not be able to add multiple Watermelon tasks
     Given I create a watermelon task called "Finish the book DNS and BIND"
     Given I create a watermelon task called "Finish the book DNS and BIND"
     Then I should only see one watermelon task called "Finish the book DNS and BIND"
-    And I should get an error message that says "Task already exists"
+    And I should get an input error message that says "Task already exists"
 
   Scenario: Watermelon tasks
     Given I create a watermelon task called "Finish the book DNS and BIND"

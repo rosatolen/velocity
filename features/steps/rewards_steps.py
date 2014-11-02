@@ -22,7 +22,7 @@ def step_impl(context):
     context.current_page.add_reward_with_empty_name()
 
 
-@then(u'I should get an error message that says "{expected_error}"')
+@then(u'I should get an input error message that says "{expected_error}"')
 def step_impl(context, expected_error):
     error_messages = context.current_page.get_validation_error_messages()
     tools.assert_in(expected_error, error_messages)

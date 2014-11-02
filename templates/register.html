@@ -1,6 +1,9 @@
-$def with (register_form)
+$def with (error, register_form)
 
-<h3 name="page_name">Register</h3>
-<form action="" method="post">
-    $:register_form.render()
-</form>
+    $if error is not None:
+        <span name="error">$error</span>
+
+    <h3 name="page_name">Register</h3>
+    <form action="" method="post">
+        $:register_form.render()
+    </form>

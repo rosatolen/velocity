@@ -3,11 +3,10 @@ from selenium import webdriver
 from page_navigation import *
 import subprocess
 
-
 def before_all(context):
     print '*** Starting Velocity on localhost:1234 ***'
     clean_database()
-    context.server = subprocess.Popen(["python view.py 1234"], stdout=subprocess.PIPE, shell=True)
+    context.server = subprocess.Popen(["python app.py 1234"], stdout=subprocess.PIPE, shell=True)
     context.browser = webdriver.Chrome()
     context.current_page = CurrentPage(context)
 

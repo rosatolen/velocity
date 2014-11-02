@@ -3,8 +3,13 @@ import hashlib
 
 class User:
     def __init__(self, username, password, user_storage):
-        user_storage.get_salt(username)
-        #check hash here
+        try:
+            user_storage.get_salt(username)
+            self.username = username
+            self.password = password
+        except TypeError:
+            raise InvalidCredentials
 
-        self.username = username
-        self.password = password
+
+class InvalidCredentials(Exception):
+    pass

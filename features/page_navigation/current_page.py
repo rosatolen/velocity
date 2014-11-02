@@ -18,26 +18,29 @@ class CurrentPage:
     def navigate_to_registration_page(self):
         self.browser.get('localhost:1234/register')
 
-    def register(self, username):
+    def click_on_registration_link(self):
+        self.browser.find_element(By.NAME, 'register').click()
+
+    def register(self, username, password, repassword):
         input_field = self.browser.find_element(By.NAME, 'username')
         input_field.send_keys(username)
         input_field = self.browser.find_element(By.NAME, 'password')
-        input_field.send_keys('password')
+        input_field.send_keys(password)
         input_field = self.browser.find_element(By.NAME, 'retype_password')
-        input_field.send_keys('password')
+        input_field.send_keys(repassword)
         self.browser.find_element(By.NAME, 'register').click()
 
     def navigate_to_login_page(self):
         self.browser.get('localhost:1234/login')
 
-    def login(self, username):
+    def login(self, username, password):
         input_field = self.browser.find_element(By.NAME, 'username')
         input_field.send_keys(username)
         input_field = self.browser.find_element(By.NAME, 'password')
-        input_field.send_keys('password')
+        input_field.send_keys(password)
         self.browser.find_element(By.NAME, 'login').click()
 
-    def logout(self):
+    def click_on_logout_link(self):
         self.browser.find_element(By.NAME, 'logout').click()
 
     def assert_that_current_page_is_home_page(self):

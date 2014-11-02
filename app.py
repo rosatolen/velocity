@@ -31,8 +31,8 @@ def create_session():
 class Login:
     def __init__(self):
         self.login_form = web.form.Form(
-            web.form.Textbox('username', description="Username"),
-            web.form.Textbox('password', description="Password"),
+            web.form.Textbox('username', web.form.notnull, description="Username"),
+            web.form.Password('password', web.form.notnull, description="Password"),
             web.form.Button('login', html='Login')
         )
 
