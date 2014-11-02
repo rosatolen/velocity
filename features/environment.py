@@ -2,6 +2,9 @@ from pymongo import MongoClient
 from selenium import webdriver
 from page_navigation import *
 import subprocess
+from behave import use_step_matcher
+use_step_matcher("parse")
+
 
 def before_all(context):
     print '*** Starting Velocity on localhost:1234 ***'

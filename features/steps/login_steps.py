@@ -1,10 +1,6 @@
-# DEBT refactor these imports into the environment
 from nose import tools
-from behave import when, then, use_step_matcher
 from model.repositories.user_repository import UserRepository
 from model.repositories.mongo_wrapper import MongoWrapper
-
-use_step_matcher("parse")
 
 
 @when(u'I try to access the home page')

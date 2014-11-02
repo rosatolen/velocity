@@ -1,9 +1,7 @@
-from behave import then, use_step_matcher
 from nose import tools
 from model.bad_ass_points_purse import BadAssPointsPurse
 from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 from model.repositories.mongo_wrapper import MongoWrapper
-use_step_matcher("parse")
 
 @then(u'I should have {amount} more bad ass points in my bad ass points purse')
 def step_impl(context, amount):

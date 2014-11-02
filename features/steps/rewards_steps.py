@@ -1,8 +1,6 @@
 from nose import tools
 from model.reward import *
 from test_storage_access import TestStorageAccess
-from behave import use_step_matcher, given, when, then
-use_step_matcher("parse")
 
 @when(u'I save a reward called "{reward_name}" with a cost of {reward_cost} Bad Ass Points')
 def step_impl(context, reward_name, reward_cost):
