@@ -1,8 +1,7 @@
 import web
 import view
 from model.task import SnailTask
-from model.user import User
-from model.user_factory import UserFactory, InvalidCredentials
+from model.user import User, InvalidCredentials
 from model.repositories.user_repository import UserRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 
@@ -51,9 +50,7 @@ class Login:
         password = self.login_form.d.password
 
         try:
-            user_factory = UserFactory(UserRepository(MongoWrapper()))
-            user_factory.create_user(username, password)
-
+            user = User(username, password, UserRepository(MongoWrapper()))
             web.config.session = create_session()
             raise web.seeother('/')
         except InvalidCredentials:
