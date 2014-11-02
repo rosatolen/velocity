@@ -28,6 +28,11 @@ def step_impl(context, username):
     context.current_page.login(username, 'password')
 
 
+@when(u'I try to login as "{username}" with a bad password')
+def step_impl(context, username):
+    context.current_page.login(username, 'badpassword')
+
+
 @then(u'I should be able to see my home page')
 def step_impl(context):
     context.current_page.assert_that_current_page_is_home_page()

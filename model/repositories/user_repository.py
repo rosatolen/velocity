@@ -7,3 +7,6 @@ class UserRepository:
 
     def get_salt(self, username):
         return self.storage_connection.get_salt(username)
+
+    def get_password(self, username):
+        return self.storage_connection.get_password(username)

@@ -19,6 +19,11 @@ Feature: Basic login functionality
     Then I should get an upper level error message that says "Invalid Username or Password"
     Then I should be able to register
 
+  Scenario: Login as an known user with a bad password
+    Given I register as the user "Jessica"
+    When I try to login as "Jessica" with a bad password
+    Then I should get an upper level error message that says "Invalid Username or Password"
+
   Scenario: Bad username to login form
     When I leave the username on the login form blank
     Then I should get an input error message that says "Required"

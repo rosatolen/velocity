@@ -56,3 +56,7 @@ class MongoWrapper:
     def get_salt(self, username):
         user = self.users.find_one({'username': username})
         return user['salt']
+
+    def get_password(self, username):
+        user = self.users.find_one({'username': username})
+        return user['password']
