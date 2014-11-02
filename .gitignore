@@ -2,8 +2,9 @@
 ENV/*
 *.pyc
 
-## Local Database ##
+## Local Storage ##
 database/*
+sessions/*
 
 ## Vim ##
 *.swp
