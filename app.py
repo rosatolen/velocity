@@ -26,7 +26,7 @@ def main():
 
 
 def create_session():
-    return web.session.Session(app, web.session.DiskStore('sessions'))
+    return web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': None})
 
 
 class Login:
