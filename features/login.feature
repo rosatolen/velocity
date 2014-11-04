@@ -42,16 +42,19 @@ Feature: Basic login functionality
     When I register with mismatching passwords
     Then I should get an upper level error message that says "Passwords do not match"
 
-    @wip
   Scenario: Link each user with their own data
     Given I register as the user "Galatea"
-    #Given I register as the user "Sannidhi"
+    Given I register as the user "Sannidhi"
     When I try to login as "Galatea"
     When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
     Then I should be able to view all rewards
-    #When I logout
-    #When I try to login as "Sannidhi"
-    #Then I should not see the reward "A kiss from my girlfriend" with a cost 100 listed
+    When I logout
+    When I try to login as "Sannidhi"
+    Then I should not see the reward "A kiss from my girlfriend" with a cost 100 listed
+    When I save a reward called "Trip to London" with a cost of 300 Bad Ass Points
+    When I logout
+    When I try to login as "Galatea"
+    Then I should only see one reward called "A kiss from my girlfriend" with a cost of 100
 
   #Scenario: Check login is threadsafe on another browser
   #Scenario: Should not be able to register a second user with the same username as an existing one
