@@ -1,22 +1,14 @@
 import web
 import forms
+from app import app
 from model.task import SnailTask, QuailTask
-from model.prize_area import PrizeArea
-from model.todo_list import TodoList
-from model.repositories.reward_repository import RewardRepository
-from model.repositories.task_repository import TaskRepository
-from model.repositories.bad_ass_points_repository import BadAssPointsRepository
-from model.bad_ass_points_purse import BadAssPointsPurse
 from model.repositories.mongo_wrapper import MongoWrapper
+from model.repositories.user_repository import UserRepository
+from model.user_factory import UserFactory
 
 
 class Home:
     def __init__(self):
-        self.prize_area = PrizeArea(RewardRepository(MongoWrapper()),
-                                    BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
-        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
-                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
-        self.bad_ass_points_purse = BadAssPointsPurse(BadAssPointsRepository(MongoWrapper()))
         self.snail_task_form = forms.SnailTaskForm().form
         self.quail_task_form = forms.QuailTaskForm().form
         self.watermelon_task_form = forms.WatermelonTaskForm().form
@@ -27,15 +19,11 @@ class Home:
                                           globals={'is_snail': is_snail,
                                                    'is_quail': is_quail})
 
-    def render_home_page(self, error=None):
-        bad_ass_points_total = self.bad_ass_points_purse.total
-        rewards = self.prize_area.get_rewards()
-        tasks = self.todo_list.get_tasks()
-
+    def render_home_page(self, user, error=None):
         return self.render.home(error,
-                                bad_ass_points_total,
-                                rewards,
-                                tasks,
+                                user.points,
+                                user.rewards,
+                                user.tasks,
                                 self.reward_form,
                                 self.snail_task_form,
                                 self.quail_task_form,
@@ -47,7 +35,11 @@ class Home:
         if web.config.get('session') is None:
             raise web.seeother('/login')
         else:
-            return self.render_home_page()
+            #session_user = web.config.get('session').initializer['user']
+            #user_factory = UserFactory(UserRepository(MongoWrapper()))
+            #user = user_factory.get_user(session_user.username)
+            user = web.config.get('session').initializer['user']
+            return self.render_home_page(user)
 
 
 def is_snail(task):

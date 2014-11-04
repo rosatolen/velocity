@@ -1,19 +1,9 @@
 import web
 from web.form import Validator
-from model.todo_list import TodoList
-from model.prize_area import PrizeArea
-from model.bad_ass_points_purse import BadAssPointsPurse
-from model.repositories.task_repository import TaskRepository
-from model.repositories.reward_repository import RewardRepository
-from model.repositories.bad_ass_points_repository import BadAssPointsRepository
-from model.repositories.mongo_wrapper import MongoWrapper
-from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 
 
 class RewardForm:
     def __init__(self):
-        self.prize_area = PrizeArea(RewardRepository(MongoWrapper()),
-                                    BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
             web.form.Textbox('new_reward_name', web.form.notnull,
                              Validator("Reward already exists", self.not_existing_reward),
@@ -25,13 +15,12 @@ class RewardForm:
         )
 
     def not_existing_reward(self, value):
-        return not self.prize_area.contains(value)
+        user = web.config.get('session').initializer['user']
+        return not user.has_reward_named(value)
 
 
 class SnailTaskForm:
     def __init__(self):
-        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
-                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
             web.form.Textbox('new_snail_task_name', web.form.notnull,
                              Validator("Task already exists", self.not_existing_task),
@@ -40,13 +29,12 @@ class SnailTaskForm:
         )
 
     def not_existing_task(self, value):
-        return not self.todo_list.contains(value)
+        user = web.config.get('session').initializer['user']
+        return not user.has_task_named(value)
 
 
 class QuailTaskForm:
     def __init__(self):
-        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
-                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
             web.form.Textbox('new_quail_task_name', web.form.notnull,
                              Validator("Task already exists", self.not_existing_task),
@@ -55,13 +43,12 @@ class QuailTaskForm:
         )
 
     def not_existing_task(self, value):
-        return not self.todo_list.contains(value)
+        user = web.config.get('session').initializer['user']
+        return not user.has_task_named(value)
 
 
 class WatermelonTaskForm:
     def __init__(self):
-        self.todo_list = TodoList(TaskRepository(MongoWrapper()),
-                                  BadAssPointsPurse(BadAssPointsRepository(MongoWrapper())))
         self.form = web.form.Form(
             web.form.Textbox('new_watermelon_task_name', web.form.notnull,
                              Validator("Task already exists", self.not_existing_task),
@@ -70,7 +57,8 @@ class WatermelonTaskForm:
         )
 
     def not_existing_task(self, value):
-        return not self.todo_list.contains(value)
+        user = web.config.get('session').initializer['user']
+        return not user.has_task_named(value)
 
 
 class CompleteTaskForm:

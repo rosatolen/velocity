@@ -1,6 +1,7 @@
 class SnailTask:
     def __init__(self, name):
         self.name = name
+        self.size = 1
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -15,6 +16,7 @@ class SnailTask:
 class QuailTask:
     def __init__(self, name):
         self.name = name
+        self.size = 8
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -29,6 +31,7 @@ class QuailTask:
 class WatermelonTask:
     def __init__(self, name):
         self.name = name
+        self.size = 21
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

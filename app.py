@@ -25,10 +25,6 @@ def main():
     app.run()
 
 
-def create_session():
-    return web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': None})
-
-
 class Login:
     def __init__(self):
         self.login_form = web.form.Form(
@@ -52,9 +48,10 @@ class Login:
 
         try:
             user_factory = UserFactory(UserRepository(MongoWrapper()))
-            user_factory.create_user(username, password)
+            user = user_factory.create_user(username, password)
 
-            web.config.session = create_session()
+            web.config.session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': user})
+
             raise web.seeother('/')
         except InvalidCredentials:
             error = "Invalid Username or Password"

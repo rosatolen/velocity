@@ -1,6 +1,4 @@
 from model.task import *
-from model.bad_ass_points_purse import BadAssPointsPurse
-from model.repositories.bad_ass_points_repository import BadAssPointsRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 from nose import tools
 

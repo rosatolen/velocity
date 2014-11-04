@@ -1,6 +1,10 @@
+import web
 from nose import tools
 from model.reward import *
-from test_storage_access import TestStorageAccess
+from model.user import User
+from model.repositories.user_repository import UserRepository
+from model.repositories.mongo_wrapper import MongoWrapper
+
 
 @when(u'I save a reward called "{reward_name}" with a cost of {reward_cost} Bad Ass Points')
 def step_impl(context, reward_name, reward_cost):
@@ -39,9 +43,11 @@ def step_impl(context, name, cost):
     tools.assert_not_in(Reward(name, int(cost)), actual_rewards)
 
 
-@given(u'I have {amount} Bad Ass Points')
-def step_impl(context, amount):
-    TestStorageAccess().set_bad_ass_points(int(amount))
+@given(u'"{username}" has {amount} Bad Ass Points')
+def step_impl(context, username, amount):
+    user = User(username, [], [], amount)
+    user_repository = UserRepository(MongoWrapper())
+    user_repository.save_state(user)
 
 
 @when(u'I purchase the reward')

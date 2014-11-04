@@ -3,6 +3,7 @@ from model.repositories.user_repository import UserRepository
 from model.repositories.mongo_wrapper import MongoWrapper
 
 
+
 @when(u'I try to access the home page')
 def step_impl(context):
     context.current_page.navigate_to_home_page()
@@ -15,6 +16,7 @@ def step_impl(context):
 
 @given(u'I register as the user "{username}"')
 def step_impl(context, username):
+    context.username = username
     context.current_page.navigate_to_registration_page()
     context.current_page.register(username, 'password', 'password')
 

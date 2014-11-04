@@ -9,8 +9,15 @@ user_repo = UserRepository(mock_user_storage)
 
 def test_call_to_create_user():
     user_repo.create_user('username', 'password', 'salt')
-
-    mock_user_storage.create_document.assert_called_with('username', 'password', 'salt')
+    query = {
+        'username': 'username',
+        'password': 'password',
+        'salt': 'salt',
+        'points': 0,
+        'rewards': [],
+        'tasks': []
+    }
+    mock_user_storage.insert.assert_called_with(query)
 
 
 def test_call_to_get_salt_for_user():

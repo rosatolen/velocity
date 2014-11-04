@@ -1,7 +1,7 @@
 class Reward:
     def __init__(self, name, cost):
         self.name = name
-        self.cost = cost
+        self.cost = int(cost)
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

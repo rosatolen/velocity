@@ -8,7 +8,6 @@ from model.repositories.mongo_wrapper import MongoWrapper
 
 class Register:
     def __init__(self):
-        self.user_repository = UserRepository(MongoWrapper())
         self.register_form = web.form.Form(
             web.form.Textbox('username', web.form.notnull, description="Username"),
             web.form.Password('password', description="Password"),
@@ -37,5 +36,6 @@ class Register:
         salt = urandom(64).encode('hex')
         hexdigest = hashlib.sha256(salt + password).hexdigest()
 
-        self.user_repository.create_user(username, hexdigest, salt)
+        user_repository = UserRepository(MongoWrapper())
+        user_repository.create_user(username, hexdigest, salt)
         raise web.seeother('/login')
