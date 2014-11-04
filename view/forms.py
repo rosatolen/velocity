@@ -15,7 +15,7 @@ class RewardForm:
         )
 
     def not_existing_reward(self, value):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         return not user.has_reward_named(value)
 
 
@@ -29,7 +29,7 @@ class SnailTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         return not user.has_task_named(value)
 
 
@@ -43,7 +43,7 @@ class QuailTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         return not user.has_task_named(value)
 
 
@@ -57,7 +57,7 @@ class WatermelonTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         return not user.has_task_named(value)
 
 

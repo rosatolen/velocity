@@ -35,10 +35,10 @@ class Home:
         if web.config.get('session') is None:
             raise web.seeother('/login')
         else:
-            #session_user = web.config.get('session').initializer['user']
+            #session_user = web.config.get('session')._initializer['user']
             #user_factory = UserFactory(UserRepository(MongoWrapper()))
             #user = user_factory.get_user(session_user.username)
-            user = web.config.get('session').initializer['user']
+            user = web.config.get('session')._initializer['user']
             return self.render_home_page(user)
 
 

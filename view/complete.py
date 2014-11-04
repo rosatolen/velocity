@@ -10,7 +10,7 @@ class CompleteTask:
         self.home = Home()
 
     def POST(self, task_name):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         complete_task_form = self.home.complete_task_form
         if not complete_task_form.validates():
             return self.home.render_home_page(user)

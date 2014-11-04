@@ -14,7 +14,7 @@ class CreateReward:
 
     def POST(self):
         reward_form = self.home_page.reward_form
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         if not reward_form.validates():
             return self.home_page.render_home_page(user)
 
@@ -31,7 +31,7 @@ class CreateSnailTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         snail_task_form = self.home_page.snail_task_form
         if not snail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -49,7 +49,7 @@ class CreateQuailTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         quail_task_form = self.home_page.quail_task_form
         if not quail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -67,7 +67,7 @@ class CreateWatermelonTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         watermelon_task_form = self.home_page.watermelon_task_form
         if not watermelon_task_form.validates():
             return self.home_page.render_home_page(user)

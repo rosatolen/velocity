@@ -10,7 +10,7 @@ class PurchaseReward:
         self.home_page = Home()
 
     def POST(self, reward_name):
-        user = web.config.get('session').initializer['user']
+        user = web.config.get('session')._initializer['user']
         try:
             print 'points ' + str(user.points)
             user.purchase(reward_name)
