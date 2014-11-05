@@ -42,6 +42,19 @@ Feature: Basic login functionality
     When I register with mismatching passwords
     Then I should get an upper level error message that says "Passwords do not match"
 
+  Scenario: Data should appear properly after logging out and in
+    Given I register as the user "Galatea"
+    When I try to login as "Galatea"
+    When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    Then I should be able to view all rewards
+    Given I create a snail task called "Do expenses for October"
+    Given I create a quail task called "Row 5k"
+    Then I should be able to view all tasks
+    When I logout
+    When I try to login as "Galatea"
+    Then I should be able to view all rewards
+    Then I should be able to view all tasks
+
   Scenario: Link each user with their own data
     Given I register as the user "Galatea"
     Given I register as the user "Sannidhi"

@@ -68,7 +68,7 @@ class UserRepository:
         changed_tasks = find_changed(current_tasks, user.tasks)
         dict_tasks = []
         for task in changed_tasks:
-            dict_tasks.append(dict(zip(('name', 'size'), (task.name, task.size))))
+            dict_tasks.append(dict(zip(('name', 'size'), (task.name, size(task)))))
 
         self.storage_connection.remove(user_query)
         self.storage_connection.insert({
@@ -86,6 +86,15 @@ def find_changed(original, new):
         return original
     else:
         return new
+
+
+def size(task):
+    if isinstance(task, SnailTask):
+        return 'snail'
+    elif isinstance(task, QuailTask):
+        return 'quail'
+    else:
+        return 'watermelon'
 
 
 def create_task(db_task):
