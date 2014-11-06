@@ -1,8 +1,5 @@
 Feature: Basic login functionality
 
-  Background:
-    Given I reset my user
-
   Scenario: Accessing the home page
     When I try to access the home page
     Then I should be asked to login
@@ -69,5 +66,13 @@ Feature: Basic login functionality
     When I try to login as "Galatea"
     Then I should only see one reward called "A kiss from my girlfriend" with a cost of 100
 
-  #Scenario: Check login is threadsafe on another browser
-  #Scenario: Should not be able to register a second user with the same username as an existing one
+  Scenario: Multiple users should be able to log in
+    Given I register as the user "Galatea"
+    When I try to login as "Galatea"
+    When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    Then I should be able to view all rewards
+    When I open the home page on a different browser
+    Then I should be asked to login in a different browser
+    When I register as the user "Sannidhi" in a different browser
+    When I try to login as "Sannidhi" in a different browser
+    Then I should not see the reward "A kiss from my girlfriend" with a cost 100 listed in a different browser

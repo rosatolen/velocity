@@ -1,5 +1,8 @@
 import web
 from web.form import Validator
+from model.user_factory import UserFactory
+from model.repositories.user_repository import UserRepository
+from model.repositories.mongo_wrapper import MongoWrapper
 
 
 class RewardForm:
@@ -15,7 +18,9 @@ class RewardForm:
         )
 
     def not_existing_reward(self, value):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         return not user.has_reward_named(value)
 
 
@@ -29,7 +34,9 @@ class SnailTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         return not user.has_task_named(value)
 
 
@@ -43,7 +50,9 @@ class QuailTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         return not user.has_task_named(value)
 
 
@@ -57,7 +66,9 @@ class WatermelonTaskForm:
         )
 
     def not_existing_task(self, value):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         return not user.has_task_named(value)
 
 

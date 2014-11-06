@@ -32,13 +32,13 @@ class Home:
                                 self.purchase_reward_form)
 
     def GET(self):
-        if web.config.get('session') is None:
+        #replace with preprocessor
+        if not web.cookies().get('username', None):
             raise web.seeother('/login')
         else:
-            #session_user = web.config.get('session')._initializer['user']
-            #user_factory = UserFactory(UserRepository(MongoWrapper()))
-            #user = user_factory.get_user(session_user.username)
-            user = web.config.get('session')._initializer['user']
+            user_factory = UserFactory(UserRepository(MongoWrapper()))
+            username = web.cookies().get('username')
+            user = user_factory.find_user(username)
             return self.render_home_page(user)
 
 

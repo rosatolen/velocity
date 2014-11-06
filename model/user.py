@@ -21,10 +21,7 @@ class User:
     def purchase(self, reward_name):
         for reward in self.rewards:
             if reward.name == reward_name:
-                print 'self.points ' + str(self.points)
-                print 'cost ' + str(reward.cost)
                 if self.points < reward.cost:
-                    print 'hello'
                     raise NotPurchasable
                 else:
                     self.rewards.remove(reward)

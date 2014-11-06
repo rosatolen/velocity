@@ -14,7 +14,10 @@ class CreateReward:
 
     def POST(self):
         reward_form = self.home_page.reward_form
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
+
         if not reward_form.validates():
             return self.home_page.render_home_page(user)
 
@@ -31,7 +34,9 @@ class CreateSnailTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         snail_task_form = self.home_page.snail_task_form
         if not snail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -49,7 +54,9 @@ class CreateQuailTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         quail_task_form = self.home_page.quail_task_form
         if not quail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -67,7 +74,9 @@ class CreateWatermelonTask:
         self.home_page = Home()
 
     def POST(self):
-        user = web.config.get('session')._initializer['user']
+        username = web.cookies().get('username')
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(username)
         watermelon_task_form = self.home_page.watermelon_task_form
         if not watermelon_task_form.validates():
             return self.home_page.render_home_page(user)

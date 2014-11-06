@@ -18,11 +18,8 @@ urls = (
     '/complete/task/(.+)', 'view.CompleteTask',
     '/purchase/(.+)', 'view.PurchaseReward',
 )
+
 app = web.application(urls, globals())
-
-
-def main():
-    app.run()
 
 
 class Login:
@@ -50,8 +47,7 @@ class Login:
             user_factory = UserFactory(UserRepository(MongoWrapper()))
             user = user_factory.create_user(username, password)
 
-            web.config.session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': user})
-
+            web.setcookie('username', user.username)
             raise web.seeother('/')
         except InvalidCredentials:
             error = "Invalid Username or Password"
@@ -63,9 +59,10 @@ class Logout:
         pass
 
     def GET(self):
-        web.config.session = None
+        web.setcookie('username', '', expires=-1)
         raise web.seeother('/login')
 
 
 if __name__ == "__main__":
-    main()
+    app.run()
+

@@ -28,3 +28,9 @@ class UserFactory:
         user = User(username, rewards, tasks, points)
 
         return user
+
+    def find_user(self, username):
+        rewards = self.user_storage.get_rewards(username)
+        tasks = self.user_storage.get_tasks(username)
+        points = self.user_storage.get_points(username)
+        return User(username, rewards, tasks, points)

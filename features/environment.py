@@ -3,6 +3,7 @@ from selenium import webdriver
 from page_navigation import *
 import subprocess
 from behave import use_step_matcher
+
 use_step_matcher("parse")
 
 
@@ -15,6 +16,7 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
+    context.browser.get('localhost:1234/logout')
     context.browser.get('localhost:1234')
     context.expected_snail_tasks = []
     context.expected_quail_tasks = []

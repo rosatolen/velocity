@@ -58,11 +58,9 @@ class CurrentPage:
         rewards = self.browser.find_elements(By.NAME, 'reward')
         costs = self.browser.find_elements(By.NAME, 'cost')
         actual_rewards = []
-        i = 0
-        for reward in rewards:
-            new_reward = Reward(reward.text, int(costs[i].text))
+        for reward, cost in zip(rewards, costs):
+            new_reward = Reward(reward.text, int(cost.text))
             actual_rewards.append(new_reward)
-            i += 1
         return actual_rewards
 
     def add_snail_task(self, task):

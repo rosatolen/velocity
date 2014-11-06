@@ -1,7 +1,6 @@
 Feature: Rewards
 
   Background:
-    Given I reset my user
     Given I register as the user "Athena"
     When I try to login as "Athena"
 
