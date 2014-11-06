@@ -36,5 +36,9 @@ class Register:
         hexdigest = hashlib.sha256(salt + password).hexdigest()
 
         user_repository = UserRepository(MongoWrapper())
-        user_repository.create_user(username, hexdigest, salt)
+        try:
+            user_repository.create_user(username, hexdigest, salt)
+        except UserExists:
+            return self.render_registration_page(error="Username already exists")
+
         raise web.seeother('/login')

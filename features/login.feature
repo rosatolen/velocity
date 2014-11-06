@@ -76,3 +76,25 @@ Feature: Basic login functionality
     When I register as the user "Sannidhi" in a different browser
     When I try to login as "Sannidhi" in a different browser
     Then I should not see the reward "A kiss from my girlfriend" with a cost 100 listed in a different browser
+
+  Scenario: Should not be able to register with a user name that already exists
+    Given I register as the user "Galatea"
+    Given I register as the user "Galatea"
+    Then I should get an upper level error message that says "Username already exists"
+
+  Scenario: Should be able to recognize user names regardless of case
+    Given I register as the user "Galatea"
+    When I try to login as "Galatea"
+    When I save a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    Given I create a quail task called "Row 5k"
+    Given I create a snail task called "Do expenses for October"
+    When I logout
+    When I try to login as "galatea"
+    Then I should be able to see my home page
+    Then I should be able to view all rewards
+    Then I should be able to view all tasks
+    When I logout
+    When I try to login as "Galatea"
+    Then I should be able to see my home page
+    Then I should be able to view all rewards
+    Then I should be able to view all tasks

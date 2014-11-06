@@ -49,6 +49,11 @@ class UserRepository:
         self.storage_connection = storage_connection
 
     def create_user(self, username, password, salt):
+        username = normalize(username)
+
+        if self.storage_connection.find_one({'username': username}):
+            raise UserExists
+
         self.storage_connection.insert({
             'username': username,
             'password': password,
@@ -59,16 +64,20 @@ class UserRepository:
         })
 
     def get_salt(self, username):
+        username = normalize(username)
         return self.storage_connection.get_salt(username)
 
     def get_password(self, username):
+        username = normalize(username)
         return self.storage_connection.get_password(username)
 
     def get_points(self, username):
+        username = normalize(username)
         db_user_obj = self.storage_connection.find_one({'username': username})
         return int(db_user_obj['points'])
 
     def get_tasks(self, username):
+        username = normalize(username)
         db_user = self.storage_connection.find_one({'username': username})
         if not db_user['tasks']:
             return []
@@ -79,6 +88,7 @@ class UserRepository:
             return tasks
 
     def get_rewards(self, username):
+        username = normalize(username)
         db_user = self.storage_connection.find_one({'username': username})
         if not db_user['rewards']:
             return []
@@ -89,7 +99,7 @@ class UserRepository:
             return rewards
 
     def save_state(self, user):
-        user_query = {'username': user.username}
+        user_query = {'username': normalize(user.username)}
 
         db_user = self.storage_connection.find_one(user_query)
 
@@ -120,6 +130,10 @@ class UserRepository:
             'rewards': dict_rewards,
             'tasks': dict_tasks
         })
+
+
+def normalize(value):
+    return value.lower()
 
 
 def find_changed(original, new):
