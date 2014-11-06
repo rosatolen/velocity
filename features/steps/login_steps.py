@@ -1,8 +1,6 @@
 from nose import tools
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from model.repositories.user_repository import UserRepository
-from model.repositories.mongo_wrapper import MongoWrapper
 from model.reward import Reward
 
 

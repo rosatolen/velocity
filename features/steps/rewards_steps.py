@@ -1,9 +1,7 @@
-import web
 from nose import tools
 from model.reward import *
 from model.user import User
-from model.repositories.user_repository import UserRepository
-from model.repositories.mongo_wrapper import MongoWrapper
+from model.user_repository import UserRepository, MongoWrapper
 
 
 @when(u'I save a reward called "{reward_name}" with a cost of {reward_cost} Bad Ass Points')

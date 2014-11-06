@@ -1,10 +1,9 @@
 import mock
 from nose import tools
-from model.user_factory import UserFactory
 from model.user import User
 from model.reward import Reward
 from model.task import *
-from model.repositories.user_repository import UserRepository
+from model.user_repository import UserRepository, UserFactory
 
 
 mock_user_storage = mock.create_autospec(UserRepository)

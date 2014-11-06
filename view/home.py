@@ -1,10 +1,7 @@
 import web
 import forms
-from app import app
 from model.task import SnailTask, QuailTask
-from model.repositories.mongo_wrapper import MongoWrapper
-from model.repositories.user_repository import UserRepository
-from model.user_factory import UserFactory
+from model.user_repository import UserRepository, MongoWrapper, UserFactory
 
 
 class Home:

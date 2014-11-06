@@ -1,11 +1,8 @@
 import web
-import forms
 from home import Home
 from model.reward import Reward
 from model.task import *
-from model.repositories.user_repository import UserRepository
-from model.repositories.mongo_wrapper import MongoWrapper
-from model.user_factory import UserFactory
+from model.user_repository import UserRepository, MongoWrapper, UserFactory
 
 
 class CreateReward:
@@ -14,9 +11,8 @@ class CreateReward:
 
     def POST(self):
         reward_form = self.home_page.reward_form
-        username = web.cookies().get('username')
         user_factory = UserFactory(UserRepository(MongoWrapper()))
-        user = user_factory.find_user(username)
+        user = user_factory.find_user(web.cookies().get('username'))
 
         if not reward_form.validates():
             return self.home_page.render_home_page(user)
@@ -34,9 +30,9 @@ class CreateSnailTask:
         self.home_page = Home()
 
     def POST(self):
-        username = web.cookies().get('username')
         user_factory = UserFactory(UserRepository(MongoWrapper()))
-        user = user_factory.find_user(username)
+        user = user_factory.find_user(web.cookies().get('username'))
+
         snail_task_form = self.home_page.snail_task_form
         if not snail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -54,9 +50,9 @@ class CreateQuailTask:
         self.home_page = Home()
 
     def POST(self):
-        username = web.cookies().get('username')
         user_factory = UserFactory(UserRepository(MongoWrapper()))
-        user = user_factory.find_user(username)
+        user = user_factory.find_user(web.cookies().get('username'))
+
         quail_task_form = self.home_page.quail_task_form
         if not quail_task_form.validates():
             return self.home_page.render_home_page(user)
@@ -74,9 +70,9 @@ class CreateWatermelonTask:
         self.home_page = Home()
 
     def POST(self):
-        username = web.cookies().get('username')
         user_factory = UserFactory(UserRepository(MongoWrapper()))
-        user = user_factory.find_user(username)
+        user = user_factory.find_user(web.cookies().get('username'))
+
         watermelon_task_form = self.home_page.watermelon_task_form
         if not watermelon_task_form.validates():
             return self.home_page.render_home_page(user)

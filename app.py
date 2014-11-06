@@ -1,10 +1,5 @@
 import web
-import view
-from model.task import SnailTask
-from model.user import User
-from model.user_factory import UserFactory, InvalidCredentials
-from model.repositories.user_repository import UserRepository
-from model.repositories.mongo_wrapper import MongoWrapper
+from model.user_repository import UserRepository, MongoWrapper, UserFactory, InvalidCredentials
 
 urls = (
     '/', 'view.Home',

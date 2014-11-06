@@ -1,5 +1,47 @@
+import os
+import hashlib
+import web
+from pymongo import MongoClient
 from model.task import *
 from model.reward import Reward
+from model.user import User
+
+
+class InvalidCredentials(Exception):
+    pass
+
+
+class UserExists(Exception):
+    pass
+
+
+class UserFactory:
+    def __init__(self, user_storage):
+        self.user_storage = user_storage
+
+    def create_user(self, username, password):
+        try:
+            salt = self.user_storage.get_salt(username)
+        except TypeError:
+            raise InvalidCredentials
+
+        possible_password = hashlib.sha256(salt + password).hexdigest()
+        existing_password = self.user_storage.get_password(username)
+        if possible_password != existing_password:
+            raise InvalidCredentials
+
+        rewards = self.user_storage.get_rewards(username)
+        tasks = self.user_storage.get_tasks(username)
+        points = self.user_storage.get_points(username)
+        user = User(username, rewards, tasks, points)
+
+        return user
+
+    def find_user(self, username):
+        rewards = self.user_storage.get_rewards(username)
+        tasks = self.user_storage.get_tasks(username)
+        points = self.user_storage.get_points(username)
+        return User(username, rewards, tasks, points)
 
 
 class UserRepository:
@@ -49,7 +91,6 @@ class UserRepository:
     def save_state(self, user):
         user_query = {'username': user.username}
 
-        # DEBT use this instead of calling self.get_*
         db_user = self.storage_connection.find_one(user_query)
 
         username = db_user['username']
@@ -104,3 +145,31 @@ def create_task(db_task):
         return QuailTask(db_task['name'])
     else:
         return WatermelonTask(db_task['name'])
+
+
+class MongoWrapper:
+    def __init__(self):
+        try:
+            mongolab_uri = os.environ['MONGOLAB_URI']
+            db = MongoClient(mongolab_uri)
+            self.users = db.get_default_database().users
+        except KeyError:
+            client = MongoClient('mongodb://localhost:27017')
+            self.users = client.velocity.users
+
+    def get_salt(self, username):
+        user = self.users.find_one({'username': username})
+        return user['salt']
+
+    def get_password(self, username):
+        user = self.users.find_one({'username': username})
+        return user['password']
+
+    def insert(self, query):
+        self.users.insert(query)
+
+    def remove(self, query):
+        self.users.remove(query)
+
+    def find_one(self, query):
+        return self.users.find_one(query)

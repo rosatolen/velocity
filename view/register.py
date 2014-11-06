@@ -1,9 +1,8 @@
-import web
 import hashlib
-import re
+
+import web
 from os import urandom
-from model.repositories.user_repository import UserRepository
-from model.repositories.mongo_wrapper import MongoWrapper
+from model.user_repository import UserRepository, MongoWrapper, UserExists
 
 
 class Register:

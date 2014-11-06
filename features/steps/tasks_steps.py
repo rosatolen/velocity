@@ -1,5 +1,4 @@
 from model.task import *
-from model.repositories.mongo_wrapper import MongoWrapper
 from nose import tools
 
 
