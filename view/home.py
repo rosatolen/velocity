@@ -33,14 +33,11 @@ class Home:
                                 self.delete_reward_form)
 
     def GET(self):
-        #replace with preprocessor
-        if not web.cookies().get('username', None):
-            raise web.seeother('/login')
-        else:
-            user_factory = UserFactory(UserRepository(MongoWrapper()))
-            username = web.cookies().get('username')
-            user = user_factory.find_user(username)
-            return self.render_home_page(user)
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        username = web.cookies().get('username')
+        user = user_factory.find_user(username)
+
+        return self.render_home_page(user)
 
 
 def is_snail(task):

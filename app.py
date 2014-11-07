@@ -19,6 +19,15 @@ urls = (
 app = web.application(urls, globals())
 
 
+def authenticator(handle):
+    if not web.cookies().get('username') and web.ctx.path != '/login' and web.ctx.path != '/register':
+        raise web.seeother('/login')
+    return handle()
+
+
+app.add_processor(authenticator)
+
+
 class Login:
     def __init__(self):
         self.login_form = web.form.Form(
@@ -62,4 +71,3 @@ class Logout:
 
 if __name__ == "__main__":
     app.run()
-
