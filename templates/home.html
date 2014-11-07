@@ -1,4 +1,4 @@
-$def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form)
+$def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form, delete_task_form, delete_reward_form)
 
 <title>Relocity</title>
 
@@ -24,10 +24,15 @@ $def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_
                 $:purchase_reward_form.render()
             </form>
         </td>
+        <td>
+            <form action="/delete/reward/$reward.name" method="post">
+                $:delete_reward_form.render()
+            </form>
+        </td>
       </tr>
     </table>
         Recommendation:
-        </br>Have the reward's cost fall close to the monetary cost.
+        <br>Have the reward's cost fall close to the monetary cost.
 <form action="/create/reward" method="post">
 $:reward_form.render()
 </form>
@@ -47,6 +52,11 @@ $:reward_form.render()
                   $:complete_task_form.render()
               </form>
           </td>
+          <td>
+              <form action="/delete/task/$task.name" method="post">
+                  $:delete_task_form.render()
+              </form>
+          </td>
         $elif is_quail(task):
           <td name='quail_task_name'>$task.name</td>
           <td>Quail</td>
@@ -55,12 +65,22 @@ $:reward_form.render()
                   $:complete_task_form.render()
               </form>
           </td>
+          <td>
+              <form action="/delete/task/$task.name" method="post">
+                  $:delete_task_form.render()
+              </form>
+          </td>
         $else:
           <td name='watermelon_task_name'>$task.name</td>
           <td>Watermelon</td>
           <td>
               <form action="/complete/task/$task.name" method="post">
                   $:complete_task_form.render()
+              </form>
+          </td>
+          <td>
+              <form action="/delete/task/$task.name" method="post">
+                  $:delete_task_form.render()
               </form>
           </td>
       </tr>

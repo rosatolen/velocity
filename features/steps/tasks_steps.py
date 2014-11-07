@@ -93,3 +93,17 @@ def step_impl(context, task):
 @when(u'I complete the watermelon task called "Finish the book DNS and BIND"')
 def step_impl(context):
     context.current_page.complete_task()
+
+
+@when(u'I delete the task')
+def step_impl(context):
+    context.current_page.delete_task()
+
+
+@then(u'I should not see any tasks')
+def step_impl(context):
+    actual_snail_tasks, actual_quail_tasks = context.current_page.get_current_tasks()
+    actual_watermelon_tasks = context.current_page.get_current_watermelons()
+    tools.assert_equal([], actual_snail_tasks)
+    tools.assert_equal([], actual_quail_tasks)
+    tools.assert_equal([], actual_watermelon_tasks)

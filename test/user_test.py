@@ -42,3 +42,21 @@ def test_user_has_task():
 
     tools.assert_true(user.has_task_named('write an email'))
     tools.assert_false(user.has_task_named('read a book'))
+
+
+def test_user_deletes_task():
+    task_name = 'write an email'
+    user = User('username', [Reward('kisses', 1000)], [SnailTask(task_name)], 1000)
+
+    user.delete_task(task_name)
+
+    tools.assert_false(user.has_task_named(task_name))
+
+
+def test_user_deletes_reward():
+    reward_name = 'kisses'
+    user = User('username', [Reward(reward_name, 1000)], [SnailTask('write an email')], 1000)
+
+    user.delete_reward(reward_name)
+
+    tools.assert_false(user.has_reward_named(reward_name))

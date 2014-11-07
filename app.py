@@ -11,6 +11,8 @@ urls = (
     '/create/task/quail', 'view.CreateQuailTask',
     '/create/task/watermelon', 'view.CreateWatermelonTask',
     '/complete/task/(.+)', 'view.CompleteTask',
+    '/delete/task/(.+)', 'view.DeleteTask',
+    '/delete/reward/(.+)', 'view.DeleteReward',
     '/purchase/(.+)', 'view.PurchaseReward',
 )
 

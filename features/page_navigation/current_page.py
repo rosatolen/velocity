@@ -123,3 +123,9 @@ class CurrentPage:
 
     def purchase_reward(self):
         self.browser.find_element(By.NAME, 'purchase').click()
+
+    def delete_task(self):
+        self.browser.find_element(By.NAME, 'delete_task').click()
+
+    def delete_reward(self):
+        self.browser.find_element(By.NAME, 'delete_reward').click()

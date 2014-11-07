@@ -39,6 +39,16 @@ class User:
                 return True
         return False
 
+    def delete_task(self, task_name):
+        for task in self.tasks:
+            if task.name == task_name:
+                self.tasks.remove(task)
+
+    def delete_reward(self, reward_name):
+        for reward in self.rewards:
+            if reward.name == reward_name:
+                self.rewards.remove(reward)
+
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__

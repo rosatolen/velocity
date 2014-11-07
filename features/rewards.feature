@@ -38,3 +38,8 @@ Feature: Rewards
     When I purchase the reward
     Then I should be able to view all rewards
     And I should get an upper level error message that says "Not enough points"
+
+  Scenario: You can delete a reward
+    Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
+    When I delete the reward
+    Then I should not be able to see any rewards

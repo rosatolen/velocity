@@ -78,3 +78,17 @@ class PurchaseRewardForm:
         self.form = web.form.Form(
             web.form.Button('purchase', html="Purchase")
         )
+
+
+class DeleteTaskForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Button('delete_task', html="Delete")
+        )
+
+
+class DeleteRewardForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Button('delete_reward', html="Delete")
+        )

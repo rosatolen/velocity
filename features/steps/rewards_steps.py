@@ -75,3 +75,14 @@ def step_impl(context):
 def step_impl(context, message):
     error_message = context.current_page.get_upper_level_error_messages()
     tools.assert_equal(message, error_message)
+
+
+@when(u'I delete the reward')
+def step_impl(context):
+    context.current_page.delete_reward()
+
+
+@then(u'I should not be able to see any rewards')
+def step_impl(context):
+    actual_rewards = context.current_page.get_rewards()
+    tools.assert_equal([], actual_rewards)

@@ -12,6 +12,8 @@ class Home:
         self.reward_form = forms.RewardForm().form
         self.complete_task_form = forms.CompleteTaskForm().form
         self.purchase_reward_form = forms.PurchaseRewardForm().form
+        self.delete_task_form = forms.DeleteTaskForm().form
+        self.delete_reward_form = forms.DeleteRewardForm().form
         self.render = web.template.render('templates',
                                           globals={'is_snail': is_snail,
                                                    'is_quail': is_quail})
@@ -26,7 +28,9 @@ class Home:
                                 self.quail_task_form,
                                 self.watermelon_task_form,
                                 self.complete_task_form,
-                                self.purchase_reward_form)
+                                self.purchase_reward_form,
+                                self.delete_task_form,
+                                self.delete_reward_form)
 
     def GET(self):
         #replace with preprocessor
