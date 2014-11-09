@@ -6,14 +6,16 @@ urls = (
     '/login', 'Login',
     '/logout', 'Logout',
     '/register', 'view.Register',
+
     '/create/reward', 'view.CreateReward',
+    '/delete/reward/(.+)', 'view.DeleteReward',
+    '/purchase/(.+)', 'view.PurchaseReward',
+
     '/create/task/snail', 'view.CreateSnailTask',
     '/create/task/quail', 'view.CreateQuailTask',
     '/create/task/watermelon', 'view.CreateWatermelonTask',
     '/complete/task/(.+)', 'view.CompleteTask',
     '/delete/task/(.+)', 'view.DeleteTask',
-    '/delete/reward/(.+)', 'view.DeleteReward',
-    '/purchase/(.+)', 'view.PurchaseReward',
 )
 
 app = web.application(urls, globals())
