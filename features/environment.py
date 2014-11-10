@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from selenium import webdriver
 from page_navigation import *
+import os
 import subprocess
 from behave import use_step_matcher
 
@@ -10,7 +11,9 @@ use_step_matcher("parse")
 def before_all(context):
     print '*** Starting Velocity on localhost:1234 ***'
     clean_database()
-    context.server = subprocess.Popen(["python app.py 1234"], stdout=subprocess.PIPE, shell=True)
+
+    DEVNULL = open(os.devnull, 'w')
+    context.server = subprocess.Popen(["python app.py 1234"], stdout=DEVNULL, stderr=subprocess.STDOUT, shell=True)
     context.browser = webdriver.Chrome()
     context.current_page = CurrentPage(context)
 
