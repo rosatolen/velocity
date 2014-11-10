@@ -2,36 +2,43 @@ from nose import tools
 from model.user import User, NotPurchasable
 from model.task import *
 from model.reward import Reward
+from model.purse import Purse
+from datetime import date
+
+
+todays_empty_purse = Purse(0, 0, date.today())
 
 
 def test_complete_task():
     task = QuailTask('read')
-    user = User('username', [], [task], 0)
+    user = User('username', [], [task], todays_empty_purse)
 
     user.complete('read')
 
     tools.assert_equal([], user.tasks)
-    tools.assert_equal(8, user.points)
+    tools.assert_equal(8, user.purse.total)
+    tools.assert_equal(8, user.purse.todays_total)
 
 
 def test_purchase_reward():
-    user = User('username', [Reward('kisses', 1000)], [], 1000)
+    user = User('username', [Reward('kisses', 1000)], [], Purse(1000, 10, date.today()))
 
     user.purchase('kisses')
 
-    tools.assert_equal(0, user.points)
+    tools.assert_equal(0, user.purse.total)
+    tools.assert_equal(10, user.purse.todays_total)
     tools.assert_equal([], user.rewards)
 
 
 @tools.raises(NotPurchasable)
 def test_unpurchasable_reward():
-    user = User('username', [Reward('kisses', 1000)], [], 0)
+    user = User('username', [Reward('kisses', 1000)], [], todays_empty_purse)
 
     user.purchase('kisses')
 
 
 def test_user_has_reward():
-    user = User('username', [Reward('kisses', 1000)], [], 1000)
+    user = User('username', [Reward('kisses', 1000)], [], Purse(1000, 1000, date.today()))
 
     tools.assert_true(user.has_reward_named('kisses'))
     tools.assert_false(user.has_reward_named('trip to Singapore'))
@@ -46,7 +53,7 @@ def test_user_has_task():
 
 def test_user_deletes_task():
     task_name = 'write an email'
-    user = User('username', [Reward('kisses', 1000)], [SnailTask(task_name)], 1000)
+    user = User('username', [Reward('kisses', 1000)], [SnailTask(task_name)], todays_empty_purse)
 
     user.delete_task(task_name)
 
@@ -55,7 +62,7 @@ def test_user_deletes_task():
 
 def test_user_deletes_reward():
     reward_name = 'kisses'
-    user = User('username', [Reward(reward_name, 1000)], [SnailTask('write an email')], 1000)
+    user = User('username', [Reward(reward_name, 1000)], [SnailTask('write an email')], todays_empty_purse)
 
     user.delete_reward(reward_name)
 

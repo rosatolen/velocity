@@ -45,7 +45,7 @@ Feature: Task
   Scenario: Watermelon tasks
     Given I create a watermelon task called "Finish the book DNS and BIND"
     When I complete the watermelon task called "Finish the book DNS and BIND"
-    Then I should see my bad ass points increase to 21
+    Then I should see my total bad ass points increase to 21
 
   Scenario: You can delete a task
     Given I create a watermelon task called "Finish the book DNS and BIND"

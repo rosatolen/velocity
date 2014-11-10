@@ -1,3 +1,4 @@
+from datetime import date, datetime
 import mock
 from nose import tools
 from model.user_repository import UserRepository, MongoWrapper, UserExists
@@ -15,7 +16,11 @@ def test_call_to_create_user():
         'username': 'username',
         'password': 'password',
         'salt': 'salt',
-        'points': 0,
+        'purse': {
+            'total': 0,
+            'todays_total': 0,
+            'last_updated_date': datetime.combine(date.today(), datetime.min.time())
+        },
         'rewards': [],
         'tasks': []
     }
@@ -33,7 +38,11 @@ def test_throws_exception_when_creating_user_who_exists():
         'username': 'username',
         'password': 'password',
         'salt': 'salt',
-        'points': 0,
+        'purse': {
+            'total': 0,
+            'todays_total': 0,
+            'last_updated_date': datetime.combine(date.today(), datetime.min.time())
+        },
         'rewards': [],
         'tasks': []
     }

@@ -20,7 +20,8 @@ class Home:
 
     def render_home_page(self, user, error=None):
         return self.render.home(error,
-                                user.points,
+                                user.purse.todays_total,
+                                user.purse.total,
                                 user.rewards,
                                 user.tasks,
                                 self.reward_form,

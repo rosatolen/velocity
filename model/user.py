@@ -6,26 +6,26 @@ class NotPurchasable(Exception):
 
 
 class User:
-    def __init__(self, username, rewards, tasks, points):
+    def __init__(self, username, rewards, tasks, purse):
         self.username = username
         self.rewards = rewards
         self.tasks = tasks
-        self.points = int(points)
+        self.purse = purse
 
     def complete(self, task_name):
         for task in self.tasks:
             if task.name == task_name:
-                self.points += task.size
+                self.purse.add(task.size)
                 self.tasks.remove(task)
 
     def purchase(self, reward_name):
         for reward in self.rewards:
             if reward.name == reward_name:
-                if self.points < reward.cost:
+                if self.purse.total < reward.cost:
                     raise NotPurchasable
                 else:
                     self.rewards.remove(reward)
-                    self.points -= reward.cost
+                    self.purse.subtract(reward.cost)
 
     def has_reward_named(self, reward_name):
         for reward in self.rewards:

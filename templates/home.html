@@ -1,4 +1,4 @@
-$def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form, delete_task_form, delete_reward_form)
+$def with (error, todays_points, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form, delete_task_form, delete_reward_form)
 
 <title>Relocity</title>
 
@@ -8,6 +8,7 @@ $def with (error, bad_ass_points_total, rewards, tasks, reward_form, snail_task_
     $if error is not None:
         <span name="error">$error</span>
 
+    <h4>Today's Points: <span name="todays_points">$todays_points</span></h4>
     <h4 name="bad_ass_points">Bad Ass Points Total: <span name="bad_ass_points_total">$bad_ass_points_total</span></h4>
 
     <table>

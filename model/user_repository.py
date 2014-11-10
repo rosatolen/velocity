@@ -1,10 +1,12 @@
 import os
 import hashlib
 import web
+from datetime import datetime, date
 from pymongo import MongoClient
 from model.task import *
 from model.reward import Reward
 from model.user import User
+from model.purse import Purse
 
 
 class InvalidCredentials(Exception):
@@ -32,16 +34,16 @@ class UserFactory:
 
         rewards = self.user_storage.get_rewards(username)
         tasks = self.user_storage.get_tasks(username)
-        points = self.user_storage.get_points(username)
-        user = User(username, rewards, tasks, points)
+        purse = self.user_storage.get_purse(username)
+        user = User(username, rewards, tasks, purse)
 
         return user
 
     def find_user(self, username):
         rewards = self.user_storage.get_rewards(username)
         tasks = self.user_storage.get_tasks(username)
-        points = self.user_storage.get_points(username)
-        return User(username, rewards, tasks, points)
+        purse = self.user_storage.get_purse(username)
+        return User(username, rewards, tasks, purse)
 
 
 class UserRepository:
@@ -58,7 +60,11 @@ class UserRepository:
             'username': username,
             'password': password,
             'salt': salt,
-            'points': 0,
+            'purse': {
+                'total': 0,
+                'todays_total': 0,
+                'last_updated_date': date_at_midnight(date.today())
+            },
             'rewards': [],
             'tasks': []
         })
@@ -71,10 +77,10 @@ class UserRepository:
         username = normalize(username)
         return self.storage_connection.get_password(username)
 
-    def get_points(self, username):
+    def get_purse(self, username):
         username = normalize(username)
-        db_user_obj = self.storage_connection.find_one({'username': username})
-        return int(db_user_obj['points'])
+        db_purse = self.storage_connection.find_one({'username': username})['purse']
+        return Purse(db_purse['total'], db_purse['todays_total'], db_purse['last_updated_date'].date())
 
     def get_tasks(self, username):
         username = normalize(username)
@@ -100,14 +106,16 @@ class UserRepository:
 
     def save_state(self, user):
         user_query = {'username': normalize(user.username)}
-
         db_user = self.storage_connection.find_one(user_query)
 
         username = db_user['username']
         password = db_user['password']
         salt = db_user['salt']
 
-        changed_total = find_changed(db_user['points'], user.points)
+        changed_total = find_changed(db_user['purse']['total'], user.purse.total)
+        changed_todays_total = find_changed(db_user['purse']['todays_total'], user.purse.todays_total)
+        changed_updated_day = find_changed(db_user['purse']['last_updated_date'],
+                                           date_at_midnight(user.purse.last_updated_day))
 
         current_rewards = self.get_rewards(user.username)
         changed_rewards = find_changed(current_rewards, user.rewards)
@@ -126,10 +134,18 @@ class UserRepository:
             'username': username,
             'password': password,
             'salt': salt,
-            'points': changed_total,
+            'purse': {
+                'total': changed_total,
+                'todays_total': changed_todays_total,
+                'last_updated_date': changed_updated_day
+            },
             'rewards': dict_rewards,
             'tasks': dict_tasks
         })
+
+
+def date_at_midnight(day):
+    return datetime.combine(day, datetime.min.time())
 
 
 def normalize(value):

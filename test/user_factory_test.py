@@ -1,8 +1,10 @@
+from datetime import date, datetime
 import mock
 from nose import tools
 from model.user import User
 from model.reward import Reward
 from model.task import *
+from model.purse import Purse
 from model.user_repository import UserRepository, UserFactory
 
 
@@ -26,13 +28,13 @@ def test_creating_user():
 
     rewards = [Reward('kisses', 100), Reward('trip', 1000)]
     tasks = [SnailTask('send email'), QuailTask('create presentation'), WatermelonTask('read a book')]
-    points = 0
+    purse = Purse(0, 0, date.today())
 
     mock_user_storage.get_tasks.return_value = tasks
     mock_user_storage.get_rewards.return_value = rewards
-    mock_user_storage.get_points.return_value = points
+    mock_user_storage.get_purse.return_value = purse
 
-    expected_user = User('username', rewards, tasks, points)
+    expected_user = User('username', rewards, tasks, purse)
 
     actual_user = user_factory.create_user('username', 'password')
 
@@ -43,13 +45,13 @@ def test_find_existing_user():
     username = 'username'
     rewards = [Reward('kisses', 100), Reward('trip', 1000)]
     tasks = [SnailTask('send email'), QuailTask('create presentation'), WatermelonTask('read a book')]
-    points = 0
+    purse = Purse(0, 0, date.today())
 
     mock_user_storage.get_tasks.return_value = tasks
     mock_user_storage.get_rewards.return_value = rewards
-    mock_user_storage.get_points.return_value = points
+    mock_user_storage.get_purse.return_value = purse
 
-    expected_user = User(username, rewards, tasks, points)
+    expected_user = User(username, rewards, tasks, purse)
 
     actual_user = user_factory.find_user(username)
 

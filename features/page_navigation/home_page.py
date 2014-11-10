@@ -97,3 +97,7 @@ def get_current_watermelons(context):
     for watermelon in watermelons:
         actual_watermelons.append(WatermelonTask(watermelon.text))
     return actual_watermelons
+
+
+def get_todays_bad_ass_points(context):
+    return int(context.browser.find_element(By.NAME, 'todays_points').text)
