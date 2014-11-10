@@ -5,7 +5,7 @@ $def with (error, todays_points, bad_ass_points_total, rewards, tasks, reward_fo
     <a name="logout" href="/logout">Logout</a>
     <br>
 
-    $if error is not None:
+    $if error:
         <span name="error">$error</span>
 
     <h4>Today's Points: <span name="todays_points">$todays_points</span></h4>
