@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from pytz import timezone
 import mock
 from nose import tools
 from model.user import User
@@ -11,6 +12,7 @@ from model.user_repository import UserRepository, UserFactory
 
 mock_user_storage = mock.create_autospec(UserRepository)
 user_factory = UserFactory(mock_user_storage)
+timezone = timezone('US/Pacific')
 
 
 def test_validation_around_creating_users():
@@ -29,7 +31,7 @@ def test_creating_user():
 
     rewards = [Reward('kisses', 100), Reward('trip', 1000)]
     tasks = [SnailTask('send email'), QuailTask('create presentation'), WatermelonTask('read a book')]
-    purse = Purse(0, 0, date.today())
+    purse = Purse(0, 0, date.today(), timezone)
     habits = [Habit('run')]
 
     mock_user_storage.get_tasks.return_value = tasks
@@ -48,7 +50,7 @@ def test_find_existing_user():
     username = 'username'
     rewards = [Reward('kisses', 100), Reward('trip', 1000)]
     tasks = [SnailTask('send email'), QuailTask('create presentation'), WatermelonTask('read a book')]
-    purse = Purse(0, 0, date.today())
+    purse = Purse(0, 0, date.today(), timezone)
     habits = [Habit('run')]
 
     mock_user_storage.get_tasks.return_value = tasks

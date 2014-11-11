@@ -1,6 +1,7 @@
 import os
 import hashlib
 import web
+from pytz import timezone
 from datetime import datetime, date
 from pymongo import MongoClient
 from model.task import *
@@ -84,7 +85,8 @@ class UserRepository:
     def get_purse(self, username):
         username = normalize(username)
         db_purse = self.storage_connection.find_one({'username': username})['purse']
-        return Purse(db_purse['total'], db_purse['todays_total'], db_purse['last_updated_date'].date())
+        pacific = timezone('US/Pacific')
+        return Purse(db_purse['total'], db_purse['todays_total'], db_purse['last_updated_date'].date(), pacific)
 
     def get_tasks(self, username):
         username = normalize(username)
