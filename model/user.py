@@ -6,13 +6,14 @@ class NotPurchasable(Exception):
 
 
 class User:
-    def __init__(self, username, rewards, tasks, purse):
+    def __init__(self, username, rewards, tasks, habits, purse):
         self.username = username
         self.rewards = rewards
         self.tasks = tasks
+        self.habits = habits
         self.purse = purse
 
-    def complete(self, task_name):
+    def complete_task(self, task_name):
         for task in self.tasks:
             if task.name == task_name:
                 self.purse.add(task.size)
@@ -48,6 +49,11 @@ class User:
         for reward in self.rewards:
             if reward.name == reward_name:
                 self.rewards.remove(reward)
+
+    def complete_habit(self, habit_name):
+        for habit in self.habits:
+            if habit.name == habit_name:
+                self.purse.add(1)
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

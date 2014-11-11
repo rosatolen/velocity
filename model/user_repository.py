@@ -7,6 +7,7 @@ from model.task import *
 from model.reward import Reward
 from model.user import User
 from model.purse import Purse
+from model.habit import Habit
 
 
 class InvalidCredentials(Exception):
@@ -35,7 +36,8 @@ class UserFactory:
         rewards = self.user_storage.get_rewards(username)
         tasks = self.user_storage.get_tasks(username)
         purse = self.user_storage.get_purse(username)
-        user = User(username, rewards, tasks, purse)
+        habits = self.user_storage.get_habits(username)
+        user = User(username, rewards, tasks, habits, purse)
 
         return user
 
@@ -43,7 +45,8 @@ class UserFactory:
         rewards = self.user_storage.get_rewards(username)
         tasks = self.user_storage.get_tasks(username)
         purse = self.user_storage.get_purse(username)
-        return User(username, rewards, tasks, purse)
+        habits = self.user_storage.get_habits(username)
+        return User(username, rewards, tasks, habits, purse)
 
 
 class UserRepository:
@@ -66,7 +69,8 @@ class UserRepository:
                 'last_updated_date': date_at_midnight(date.today())
             },
             'rewards': [],
-            'tasks': []
+            'tasks': [],
+            'habits': []
         })
 
     def get_salt(self, username):
@@ -104,6 +108,17 @@ class UserRepository:
                 rewards.append(Reward(db_reward['name'], db_reward['cost']))
             return rewards
 
+    def get_habits(self, username):
+        username = normalize(username)
+        db_user = self.storage_connection.find_one({'username': username})
+        if not db_user['habits']:
+            return []
+        else:
+            habits = []
+            for db_habit in db_user['habits']:
+                habits.append(Habit(db_habit['name']))
+            return habits
+
     def save_state(self, user):
         user_query = {'username': normalize(user.username)}
         db_user = self.storage_connection.find_one(user_query)
@@ -129,6 +144,12 @@ class UserRepository:
         for task in changed_tasks:
             dict_tasks.append(dict(zip(('name', 'size'), (task.name, size(task)))))
 
+        current_habits = self.get_habits(user.username)
+        changed_habits = find_changed(current_habits, user.habits)
+        dict_habits = []
+        for habit in changed_habits:
+            dict_habits.append(dict([('name', habit.name)]))
+
         self.storage_connection.remove(user_query)
         self.storage_connection.insert({
             'username': username,
@@ -140,7 +161,8 @@ class UserRepository:
                 'last_updated_date': changed_updated_day
             },
             'rewards': dict_rewards,
-            'tasks': dict_tasks
+            'tasks': dict_tasks,
+            'habits': dict_habits
         })
 
 

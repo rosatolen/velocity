@@ -14,6 +14,8 @@ class Home:
         self.purchase_reward_form = forms.PurchaseRewardForm().form
         self.delete_task_form = forms.DeleteTaskForm().form
         self.delete_reward_form = forms.DeleteRewardForm().form
+        self.habit_form = forms.HabitForm().form
+        self.complete_habit_form = forms.CompleteHabitForm().form
         self.render = web.template.render('templates',
                                           globals={'is_snail': is_snail,
                                                    'is_quail': is_quail})
@@ -24,6 +26,7 @@ class Home:
                                 user.purse.total,
                                 user.rewards,
                                 user.tasks,
+                                user.habits,
                                 self.reward_form,
                                 self.snail_task_form,
                                 self.quail_task_form,
@@ -31,7 +34,9 @@ class Home:
                                 self.complete_task_form,
                                 self.purchase_reward_form,
                                 self.delete_task_form,
-                                self.delete_reward_form)
+                                self.delete_reward_form,
+                                self.habit_form,
+                                self.complete_habit_form)
 
     def GET(self):
         user_factory = UserFactory(UserRepository(MongoWrapper()))

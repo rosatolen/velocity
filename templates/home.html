@@ -1,4 +1,4 @@
-$def with (error, todays_points, bad_ass_points_total, rewards, tasks, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form, delete_task_form, delete_reward_form)
+$def with (error, todays_points, bad_ass_points_total, rewards, tasks, habits, reward_form, snail_task_form, quail_task_form, watermelon_task_form, complete_task_form, purchase_reward_form, delete_task_form, delete_reward_form, habit_form, complete_habit_form)
 
 <title>Relocity</title>
 
@@ -101,4 +101,24 @@ Recommendation: Size your task by effort cost
 </form>
 <form action="/create/task/watermelon" method="post">
     $:watermelon_task_form.render()
+</form>
+
+<table>
+    <tr>
+        <th>
+            Habit
+        </th>
+    </tr>
+    $for habit in habits:
+    <tr>
+        <td name='habit_name'>$habit.name</td>
+        <td>
+            <form action="/complete/habit/$habit.name" method="post">
+                $:complete_habit_form.render()
+            </form>
+        </td>
+    </tr>
+</table>
+<form action="/create/habit" method="post">
+    $:habit_form.render()
 </form>

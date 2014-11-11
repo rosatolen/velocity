@@ -64,7 +64,7 @@ def add_snail_task(context, task):
 
 
 def complete_task(context):
-    context.browser.find_element(By.NAME, 'complete').click()
+    context.browser.find_element(By.NAME, 'complete_task').click()
 
 
 def get_current_tasks(context):
@@ -101,3 +101,13 @@ def get_current_watermelons(context):
 
 def get_todays_bad_ass_points(context):
     return int(context.browser.find_element(By.NAME, 'todays_points').text)
+
+
+def create_habit(context, habit_name):
+    input_field = context.browser.find_element(By.NAME, 'new_habit_name')
+    input_field.send_keys(habit_name)
+    context.browser.find_element(By.NAME, 'submit_habit').click()
+
+
+def complete_habit(context):
+    context.browser.find_element(By.NAME, 'complete_habit').click()

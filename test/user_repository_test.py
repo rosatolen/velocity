@@ -22,7 +22,8 @@ def test_call_to_create_user():
             'last_updated_date': datetime.combine(date.today(), datetime.min.time())
         },
         'rewards': [],
-        'tasks': []
+        'tasks': [],
+        'habits': []
     }
     mock_user_storage.insert.assert_called_with(query)
 
@@ -31,6 +32,7 @@ def test_call_to_get_salt_for_user():
     mock_user_storage.get_salt.return_value = '1234'
 
     tools.assert_equal('1234', user_repo.get_salt('username'))
+
 
 @tools.raises(UserExists)
 def test_throws_exception_when_creating_user_who_exists():
@@ -44,7 +46,8 @@ def test_throws_exception_when_creating_user_who_exists():
             'last_updated_date': datetime.combine(date.today(), datetime.min.time())
         },
         'rewards': [],
-        'tasks': []
+        'tasks': [],
+        'habits': []
     }
     mock_user_storage.find_one.return_value = db_user
 

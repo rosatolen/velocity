@@ -1,6 +1,7 @@
 import web
 from home import Home
 from model.reward import Reward
+from model.habit import Habit
 from model.task import *
 from model.user_repository import UserRepository, MongoWrapper, UserFactory
 
@@ -79,6 +80,26 @@ class CreateWatermelonTask:
 
         new_task = WatermelonTask(watermelon_task_form.d.new_watermelon_task_name)
         user.tasks.append(new_task)
+
+        user_repository = UserRepository(MongoWrapper())
+        user_repository.save_state(user)
+        raise web.seeother('/')
+
+
+class CreateHabit:
+    def __init__(self):
+        self.home_page = Home()
+
+    def POST(self):
+        user_factory = UserFactory(UserRepository(MongoWrapper()))
+        user = user_factory.find_user(web.cookies().get('username'))
+
+        habit_form = self.home_page.habit_form
+        if not habit_form.validates():
+            return self.home_page.render_home_page(user)
+
+        habit = Habit(habit_form.d.new_habit_name)
+        user.habits.append(habit)
 
         user_repository = UserRepository(MongoWrapper())
         user_repository.save_state(user)

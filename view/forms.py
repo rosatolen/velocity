@@ -69,7 +69,7 @@ class WatermelonTaskForm:
 class CompleteTaskForm:
     def __init__(self):
         self.form = web.form.Form(
-            web.form.Button('complete', html="Complete Task")
+            web.form.Button('complete_task', html="Complete Task")
         )
 
 
@@ -91,4 +91,20 @@ class DeleteRewardForm:
     def __init__(self):
         self.form = web.form.Form(
             web.form.Button('delete_reward', html="Delete")
+        )
+
+
+class HabitForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Textbox('new_habit_name', web.form.notnull,
+                             description=""),
+            web.form.Button('submit_habit', html='Add Habit'),
+        )
+
+
+class CompleteHabitForm:
+    def __init__(self):
+        self.form = web.form.Form(
+            web.form.Button('complete_habit', html="Complete Habit")
         )
