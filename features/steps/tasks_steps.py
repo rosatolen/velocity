@@ -108,3 +108,12 @@ def step_impl(context):
     tools.assert_equal([], actual_snail_tasks)
     tools.assert_equal([], actual_quail_tasks)
     tools.assert_equal([], actual_watermelon_tasks)
+
+
+@when(u'I create a "{theme}" themed snail task called "{task_name}"')
+def step_impl(context, theme, task_name):
+    home_page.add_snail_task(theme, task_name)
+
+@then(u'I should be able to view all tasks with their themes')
+def step_impl(context):
+    assert False

@@ -4,9 +4,10 @@ Feature: Task
     Given I register as the user "Athena"
     When I try to login as "Athena"
 
+    @wip
   Scenario: Tasks are remembered by the system
-    When I create a snail task called "Do expenses for October"
-    Then I should be able to view all tasks
+    When I create a "Finances" themed snail task called "Do expenses for October"
+    Then I should be able to view all tasks with their themes
 
   Scenario: Snail Tasks and Quail Tasks can be completed
     Given I create a snail task called "Do expenses for October"
