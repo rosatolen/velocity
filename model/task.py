@@ -31,7 +31,7 @@ class QuailTask:
 class WatermelonTask:
     def __init__(self, name):
         self.name = name
-        self.size = 21
+        self.size = 55
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

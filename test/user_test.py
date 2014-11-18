@@ -1,7 +1,7 @@
 from pytz import timezone
 from nose import tools
 from model.user import User, NotPurchasable
-from model.task import *
+from model.task import SnailTask, QuailTask, WatermelonTask
 from model.reward import Reward
 from model.purse import Purse
 from model.habit import Habit
@@ -12,9 +12,9 @@ pacific_timezone = timezone('US/Pacific')
 todays_empty_purse = Purse(0, 0, date.today(), pacific_timezone)
 
 
-def test_complete_task():
+def test_complete_quail_task():
     task = QuailTask('read')
-    user = User('username', [], [task], [], todays_empty_purse)
+    user = User('username', [], [task], [], Purse(0, 0, date.today(), pacific_timezone))
 
     user.complete_task('read')
 
@@ -22,6 +22,15 @@ def test_complete_task():
     tools.assert_equal(8, user.purse.total)
     tools.assert_equal(8, user.purse.todays_total)
 
+def test_complete_watermelon_task():
+    task = WatermelonTask('read a book')
+    user = User('username', [], [task], [], Purse(0, 0, date.today(), pacific_timezone))
+
+    user.complete_task('read a book')
+
+    tools.assert_equal([], user.tasks)
+    tools.assert_equal(55, user.purse.total)
+    tools.assert_equal(55, user.purse.todays_total)
 
 def test_purchase_reward():
     user = User('username', [Reward('kisses', 1000)], [], [], Purse(1000, 10, date.today(), pacific_timezone))
