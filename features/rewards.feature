@@ -31,7 +31,7 @@ Feature: Rewards
     Given I have a reward called "A kiss from my girlfriend" with a cost of 10 Bad Ass Points
     When I purchase the reward
     Then I should not see the reward "A kiss from my girlfriend" with a cost 10 listed
-    And I should have 1 Bad Ass Points
+    And I should have 35 Bad Ass Points
 
   Scenario: You can not buy rewards that you cannot afford
     Given I have a reward called "A kiss from my girlfriend" with a cost of 100 Bad Ass Points
